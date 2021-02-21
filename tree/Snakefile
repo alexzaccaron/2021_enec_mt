@@ -1,0 +1,67 @@
+
+rule all:
+   input:
+      "concatenated_alignment.fasta.iqtree"
+
+
+
+# file name format: <TaxID>_<geneName>_<ACCESSION>.fasta
+rule combine_sequences:
+   conda: "env.yml"
+   output: "cob_combined.fasta"
+   shell: """
+      ls sequences/ | awk -v FS="_" '{{print $2}}' | sort -u | while read GENE; do
+         cat sequences/*"_"$GENE"_"* > $GENE"_combined.fasta"
+      done
+   """
+
+rule align_sequences:
+   conda: "env.yml"
+   input: "cob_combined.fasta"
+   output: "cob_combined_aligned.fasta"
+   shell: """
+      ls sequences/ | awk -v FS="_" '{{print $2}}' | sort -u | while read GENE; do
+         mafft --localpair --maxiterate 1000 $GENE"_combined.fasta" > $GENE"_combined_aligned.fasta"
+      done
+   """
+
+rule trim_alignments:
+   conda: "env.yml"
+   input: "cob_combined_aligned.fasta"
+   output: "cob_combined_aligned_trimmed.fasta"
+   shell: """
+      ls sequences/ | awk -v FS="_" '{{print $2}}' | sort -u | while read GENE; do
+         trimal -nogaps -in $GENE"_combined_aligned.fasta" > $GENE"_combined_aligned_trimmed.fasta"
+      done
+   """
+
+
+rule concatenate_alignments:
+   conda: "env.yml"
+   input: "cob_combined_aligned_trimmed.fasta"
+   output: "concatenated_alignment.fasta"
+   shell: """
+      paste <(seqkit fx2tab atp6_combined_aligned_trimmed.fasta) \
+            <(seqkit fx2tab nad1_combined_aligned_trimmed.fasta) \
+            <(seqkit fx2tab nad2_combined_aligned_trimmed.fasta) \
+            <(seqkit fx2tab nad3_combined_aligned_trimmed.fasta) \
+            <(seqkit fx2tab nad4_combined_aligned_trimmed.fasta) \
+            <(seqkit fx2tab nad4L_combined_aligned_trimmed.fasta) \
+            <(seqkit fx2tab nad5_combined_aligned_trimmed.fasta) \
+            <(seqkit fx2tab nad6_combined_aligned_trimmed.fasta) \
+            <(seqkit fx2tab cox1_combined_aligned_trimmed.fasta) \
+            <(seqkit fx2tab cox2_combined_aligned_trimmed.fasta) \
+            <(seqkit fx2tab cox3_combined_aligned_trimmed.fasta) \
+            <(seqkit fx2tab cob_combined_aligned_trimmed.fasta) \
+            | sed 's/\t\t/\t/g' | awk '{{print ">"$1}}{{for (i=2;i<=NF;i+=2) printf $i OFS}} {{print ""}}' | tr -d ' ' > {output}
+   """
+
+   
+rule build_tree:
+   conda: "env.yml"
+   input: "concatenated_alignment.fasta"
+   output: "concatenated_alignment.fasta.iqtree"
+   shell: """
+      iqtree -s {input} -T 12 -B 1000
+   """
+
