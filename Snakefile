@@ -1,5 +1,6 @@
 SAMPLES=["lodi", "ranch9"]
 
+
 rule all:
     input: 
        expand("{sample}_QCd_duk_norm_R1.fastq.gz", sample=SAMPLES),
@@ -8,7 +9,9 @@ rule all:
        expand("{sample}_dedup_sorted_rg.bam", sample=SAMPLES),
        "bams.fof",
        "variants.vcf",
-       "variants_filt.recode.vcf"
+       "variants_filt.recode.vcf",
+       "GCA_000798715.1.fasta",  # reference genome of C-strain
+       "GCA_000798715.1.gff"     # reference annotation of C-strain
 
 rule download:
    output: 
@@ -22,6 +25,22 @@ rule download:
       curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/000/SRR1448454/SRR1448454_1.fastq.gz -o {output.ranch9r1}
       curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/000/SRR1448454/SRR1448454_2.fastq.gz -o {output.ranch9r2}
     """
+
+
+rule download_genome:
+   output: fasta="GCA_000798715.1.fasta.gz", ann="GCA_000798715.1.gff.gz"
+   shell: """
+       curl -L ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/798/715/GCA_000798715.1_ASM79871v1/GCA_000798715.1_ASM79871v1_genomic.fna.gz -o {output.fasta}
+       curl -L ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/798/715/GCA_000798715.1_ASM79871v1/GCA_000798715.1_ASM79871v1_genomic.gff.gz -o {output.ann}
+"""
+
+rule gzip_genome:
+   input: fasta="GCA_000798715.1.fasta.gz", ann="GCA_000798715.1.gff.gz"
+   output: fasta="GCA_000798715.1.fasta", ann="GCA_000798715.1.gff"
+   shell: """
+       gunzip -c {input.fasta} > {output.fasta}
+       gunzip -c {input.ann} > {output.ann}
+"""
 
 rule fastp_trim:
    conda: "env-preprocess.yml"
