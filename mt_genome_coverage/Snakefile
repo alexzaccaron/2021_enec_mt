@@ -1,0 +1,154 @@
+SAMPLES=["lodi", "branching", "e1-101", "ranch9", "cstrain"]
+
+
+rule all:
+    input: 
+       expand("{sample}_R1_fastqc.html", sample=SAMPLES),
+       expand("{sample}_R1_fastqc.html", sample=SAMPLES),
+       expand("{sample}_QCd_1.fastq.gz", sample=SAMPLES),
+       expand("{sample}_QCd_2.fastq.gz", sample=SAMPLES),
+       expand("{sample}.bam.bai", sample=SAMPLES),
+       expand("{sample}.mosdepth.summary.txt", sample=SAMPLES),
+       "GCA_000798715.1.fasta",  # reference genome of C-strain
+       "GCA_000798715.1.gff",     # reference annotation of C-strain
+       "GCA_000798715.1_CDS.bed",
+       "blastn_out.txt",
+       "GCA_000798715.1_withmtDNA.fasta",
+       "GCA_000798715.1_withmtDNA.fasta.sa",
+
+
+
+rule download:
+   output: 
+      lodir1="lodi_R1.fastq.gz", 
+      lodir2="lodi_R2.fastq.gz",
+      ranch9r1="ranch9_R1.fastq.gz", 
+      ranch9r2="ranch9_R2.fastq.gz",
+      e1_101r1="e1-101_R1.fastq.gz",
+      e1_101r2="e1-101_R2.fastq.gz",
+      branchingr1="branching_R1.fastq.gz", 
+      branchingr2="branching_R2.fastq.gz",
+      cstrainr1="cstrain_R1.fastq.gz",
+      cstrainr2="cstrain_R2.fastq.gz",
+   shell: """
+      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/000/SRR1448470/SRR1448470_1.fastq.gz -o {output.lodir1}
+      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/000/SRR1448470/SRR1448470_2.fastq.gz -o {output.lodir2}
+
+      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/008/SRR1448468/SRR1448468_1.fastq.gz -o {output.e1_101r1}
+      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/008/SRR1448468/SRR1448468_2.fastq.gz -o {output.e1_101r2}
+
+      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/004/SRR1448454/SRR1448454_1.fastq.gz -o {output.ranch9r1}
+      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/004/SRR1448454/SRR1448454_2.fastq.gz -o {output.ranch9r2}
+
+      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/003/SRR1448453/SRR1448453_1.fastq.gz -o {output.branchingr1}
+      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/003/SRR1448453/SRR1448453_2.fastq.gz -o {output.branchingr2}
+
+      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/000/SRR1448450/SRR1448450_1.fastq.gz -o {output.cstrainr1}
+      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/000/SRR1448450/SRR1448450_2.fastq.gz -o {output.cstrainr2}
+    """
+
+
+rule fastqc:
+   conda: "myenv.yml"
+   input: r1="{sample}_R1.fastq.gz", r2="{sample}_R2.fastq.gz"
+   output: r1="{sample}_R1_fastqc.html", r2="{sample}_R2_fastqc.html"
+   shell: """
+      fastqc  {input.r1} {input.r2} 
+   """
+
+rule fastp_trim:
+   conda: "myenv.yml"
+   input: r1="{sample}_R1.fastq.gz", r2="{sample}_R2.fastq.gz"
+   output: r1="{sample}_QCd_1.fastq.gz", r2="{sample}_QCd_2.fastq.gz", html="{sample}_fastp.html", json="{sample}_fastp.json"
+   shell: """
+      fastp --in1 {input.r1} --in2 {input.r2} --out1 {output.r1} --out2 {output.r2} --html {output.html} --json {output.json} --thread 6 --length_required 40
+   """
+
+
+
+rule download_genome:
+   output: fasta="GCA_000798715.1.fasta.gz", ann="GCA_000798715.1.gff.gz"
+   shell: """
+       curl -L ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/798/715/GCA_000798715.1_ASM79871v1/GCA_000798715.1_ASM79871v1_genomic.fna.gz -o {output.fasta}
+       curl -L ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/798/715/GCA_000798715.1_ASM79871v1/GCA_000798715.1_ASM79871v1_genomic.gff.gz -o {output.ann}
+"""
+
+rule gzip_genome:
+   input: fasta="GCA_000798715.1.fasta.gz", ann="GCA_000798715.1.gff.gz"
+   output: fasta="GCA_000798715.1.fasta", ann="GCA_000798715.1.gff"
+   shell: """
+       gunzip -c {input.fasta} > {output.fasta}
+       gunzip -c {input.ann} > {output.ann}
+"""
+
+rule get_CDS_bed:
+   input: ann="GCA_000798715.1.gff"
+   output: bed="GCA_000798715.1_CDS.bed"
+   shell: """
+       awk -v OFS="\t" '{{if($3=="CDS") print $1,$4-1,$5}}' {input.ann} | sort -k1,1 -k2,2n > {output.bed}
+       echo "MT880588.1"$'\t'0$'\t'188577 >> {output.bed}
+"""
+
+
+
+rule blast:
+   conda: "myenv.yml"
+   input: ref="GCA_000798715.1.fasta", mt="MT880588.1.fasta"
+   output: "blastn_out.txt"
+   shell: """
+      makeblastdb -in GCA_000798715.1.fasta -dbtype nucl
+      blastn -query MT880588.1.fasta -db GCA_000798715.1.fasta -outfmt 6 -evalue 1e-200 > {output}
+   """
+
+rule remove_mt_tigs:
+   conda: "myenv.yml"
+   input: blast_out="blastn_out.txt", ref="GCA_000798715.1.fasta"
+   output: tig_ids="mt_tigs_to_remove.txt", ref_nomt="GCA_000798715.1_nomtDNA.fasta"
+   shell: """
+      cut -f 2 {input.blast_out} | sort -u > {output.tig_ids}
+      filterbyname.sh in={input.ref} names={output.tig_ids} out={output.ref_nomt} include=f
+   """
+
+rule add_mtgenome_reference:
+   input: ref="GCA_000798715.1.fasta", ref_nomt="GCA_000798715.1_nomtDNA.fasta"
+   output: "GCA_000798715.1_withmtDNA.fasta"
+   shell: """
+      cat GCA_000798715.1_nomtDNA.fasta MT880588.1.fasta > {output}
+   """
+
+
+rule index_ref:
+   input: ref="GCA_000798715.1_withmtDNA.fasta"
+   output: "GCA_000798715.1_withmtDNA.fasta.sa"
+   shell: """
+      bwa index {input.ref}
+   """
+
+
+rule map_reads:
+   conda: "myenv.yml"
+   input: ref="GCA_000798715.1_withmtDNA.fasta", r1="{sample}_QCd_1.fastq.gz", r2="{sample}_QCd_2.fastq.gz", idx_part="GCA_000798715.1_withmtDNA.fasta.sa"
+   output: bam="{sample}.bam"
+   shell: """
+      bwa mem {input.ref} {input.r1} {input.r2} | samblaster | samtools sort -o {output.bam}
+   """
+
+rule index_bam:
+   conda: "myenv.yml"
+   input: bam="{sample}.bam"
+   output: index="{sample}.bam.bai"
+   shell: """
+      samtools index {input.bam}
+   """
+
+rule mosdepth:
+   conda: "myenv.yml"
+   input: bam="{sample}.bam", index="{sample}.bam.bai", bed="GCA_000798715.1_CDS.bed", 
+   output: "{sample}.mosdepth.summary.txt"
+   shell: """
+      mosdepth --by {input.bed} {wildcards.sample} --flag 1796 --use-median {input.bam}
+   """
+
+
+
+
