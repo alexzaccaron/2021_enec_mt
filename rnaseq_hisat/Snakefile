@@ -1,0 +1,102 @@
+
+
+
+SAMPLES=["SRR1502871","SRR1502872","SRR1502873","SRR1502874","SRR1502875","SRR1502876","SRR1502877","SRR1502878","SRR1502879","SRR1502880","SRR1502881","SRR1502882"]
+
+
+rule all:
+   input:
+      expand("{sample}_1.fastq.gz", sample=SAMPLES),
+      expand("{sample}_2.fastq.gz", sample=SAMPLES),
+      expand("{sample}.bam", sample=SAMPLES),
+
+
+
+rule download:
+   output:
+      SRR1502871r1="SRR1502871_1.fastq.gz",
+      SRR1502871r2="SRR1502871_2.fastq.gz",
+      SRR1502872r1="SRR1502872_1.fastq.gz",
+      SRR1502872r2="SRR1502872_2.fastq.gz",
+      SRR1502873r1="SRR1502873_1.fastq.gz",
+      SRR1502873r2="SRR1502873_2.fastq.gz",
+      SRR1502874r1="SRR1502874_1.fastq.gz",
+      SRR1502874r2="SRR1502874_2.fastq.gz",
+      SRR1502875r1="SRR1502875_1.fastq.gz",
+      SRR1502875r2="SRR1502875_2.fastq.gz",
+      SRR1502876r1="SRR1502876_1.fastq.gz",
+      SRR1502876r2="SRR1502876_2.fastq.gz",
+      SRR1502877r1="SRR1502877_1.fastq.gz",
+      SRR1502877r2="SRR1502877_2.fastq.gz",
+      SRR1502878r1="SRR1502878_1.fastq.gz",
+      SRR1502878r2="SRR1502878_2.fastq.gz",
+      SRR1502879r1="SRR1502879_1.fastq.gz",
+      SRR1502879r2="SRR1502879_2.fastq.gz",
+      SRR1502880r1="SRR1502880_1.fastq.gz",
+      SRR1502880r2="SRR1502880_2.fastq.gz",
+      SRR1502881r1="SRR1502881_1.fastq.gz",
+      SRR1502881r2="SRR1502881_2.fastq.gz",
+      SRR1502882r1="SRR1502882_1.fastq.gz",
+      SRR1502882r2="SRR1502882_2.fastq.gz"
+   shell: """
+		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/001/SRR1502871/SRR1502871_1.fastq.gz -o {output.SRR1502871r1}
+		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/001/SRR1502871/SRR1502871_2.fastq.gz -o {output.SRR1502871r2}
+		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/004/SRR1502874/SRR1502874_1.fastq.gz -o {output.SRR1502874r1}
+		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/004/SRR1502874/SRR1502874_2.fastq.gz -o {output.SRR1502874r2}
+		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/006/SRR1502876/SRR1502876_1.fastq.gz -o {output.SRR1502876r1}
+		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/006/SRR1502876/SRR1502876_2.fastq.gz -o {output.SRR1502876r2}
+		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/002/SRR1502872/SRR1502872_1.fastq.gz -o {output.SRR1502872r1}
+		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/002/SRR1502872/SRR1502872_2.fastq.gz -o {output.SRR1502872r2}
+		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/003/SRR1502873/SRR1502873_1.fastq.gz -o {output.SRR1502873r1}
+		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/003/SRR1502873/SRR1502873_2.fastq.gz -o {output.SRR1502873r2}
+		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/005/SRR1502875/SRR1502875_1.fastq.gz -o {output.SRR1502875r1}
+		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/005/SRR1502875/SRR1502875_2.fastq.gz -o {output.SRR1502875r2}
+		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/007/SRR1502877/SRR1502877_1.fastq.gz -o {output.SRR1502877r1}
+		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/007/SRR1502877/SRR1502877_2.fastq.gz -o {output.SRR1502877r2}
+		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/008/SRR1502878/SRR1502878_1.fastq.gz -o {output.SRR1502878r1}
+		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/008/SRR1502878/SRR1502878_2.fastq.gz -o {output.SRR1502878r2}
+		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/002/SRR1502882/SRR1502882_1.fastq.gz -o {output.SRR1502882r1}
+		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/002/SRR1502882/SRR1502882_2.fastq.gz -o {output.SRR1502882r2}
+		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/001/SRR1502881/SRR1502881_1.fastq.gz -o {output.SRR1502881r1}
+		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/001/SRR1502881/SRR1502881_2.fastq.gz -o {output.SRR1502881r2}
+		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/000/SRR1502880/SRR1502880_1.fastq.gz -o {output.SRR1502880r1}
+		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/000/SRR1502880/SRR1502880_2.fastq.gz -o {output.SRR1502880r2}
+		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/009/SRR1502879/SRR1502879_1.fastq.gz -o {output.SRR1502879r1}
+		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/009/SRR1502879/SRR1502879_2.fastq.gz -o {output.SRR1502879r2}
+"""
+
+
+rule fastp_trim:
+   conda: "myenv.yml"
+   input: r1="{sample}_1.fastq.gz", r2="{sample}_2.fastq.gz"
+   output: r1="{sample}_QCd_1.fastq.gz", r2="{sample}_QCd_2.fastq.gz", html="{sample}_fastp.html", json="{sample}_fastp.json"
+   shell: """
+      fastp --in1 {input.r1} --in2 {input.r2} --out1 {output.r1} --out2 {output.r2} --html {output.html} --json {output.json} --thread 4 --length_required 40
+      rm -f {input.r1} {input.r2} 
+   """
+
+
+rule hisat_build:
+   conda: "myenv.yml"
+   input: ref="MT880588.1.fasta"
+   output: idx_part="MT880588.1.fasta.1.ht2"
+   shell: """
+      hisat2-build {input.ref} {input.ref}
+   """
+
+
+rule hisat:
+   conda: "myenv.yml"
+   input: r1="{sample}_QCd_1.fastq.gz", r2="{sample}_QCd_2.fastq.gz", ref="MT880588.1.fasta", idx_part="MT880588.1.fasta.1.ht2"
+   output: bam="{sample}.bam"
+   shell: """
+     hisat2 -x {input.ref} \
+        --threads 4        \
+        --summary-file "{wildcards.sample}_ht2_summary.txt" \
+        --min-intronlen 20    \
+        --max-intronlen 5000  \
+        --no-unal             \
+        -1 {input.r1} -2 {input.r2} | samtools sort -o {output.bam}
+        rm -f {input.r1} {input.r2}
+   """
+
