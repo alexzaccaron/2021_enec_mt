@@ -1,348 +1,372 @@
-Erysiphe necator	52586	atp6	QQY98154.1	52586_atp6_QQY98154.1
-Sclerotinia borealis	77105	atp6	YP_009072362.1	77105_atp6_YP_009072362.1
-Scytalidium sp.	1715249	atp6	QDG01220.1	1715249_atp6_QDG01220.1
-Botrytis cinerea B05.10	332648	atp6	AGN49024.1	332648_atp6_AGN49024.1
-Rhynchosporium commune	914237	atp6	YP_008965364.1	914237_atp6_YP_008965364.1
-Rhynchosporium agropyri	914238	atp6	YP_008965316.1	914238_atp6_YP_008965316.1
-Rhynchosporium secalis	38038	atp6	YP_008965437.1	38038_atp6_YP_008965437.1
-Rhynchosporium orthosporum	210010	atp6	YP_008965396.1	210010_atp6_YP_008965396.1
-Glarea lozoyensis	101852	atp6	YP_009306754.1	101852_atp6_YP_009306754.1
-Phialocephala subalpina	576137	atp6	YP_004733041.1	576137_atp6_YP_004733041.1
-Pseudogymnoascus destructans	655981	atp6	YP_009348226.1	655981_atp6_YP_009348226.1
-Cairneyella variabilis	1802957	atp6	YP_009240967.1	1802957_atp6_YP_009240967.1
-Pseudogymnoascus pannorum	79858	atp6	YP_009154292.1	79858_atp6_YP_009154292.1
-Pseudocercospora fijiensis	1873960	atp6	YP_009681558.1	1873960_atp6_YP_009681558.1
-Zymoseptoria tritici	1047171	atp6	AYO45644.1	1047171_atp6_AYO45644.1
-Zasmidium cellare	395010	atp6	YP_009257394.1	395010_atp6_YP_009257394.1
-Bipolaris cookei	74410	atp6	YP_009445538.1	74410_atp6_YP_009445538.1
-Stemphylium lycopersici	183478	atp6	YP_009433967.1	183478_atp6_YP_009433967.1
-Coniothyrium glycines	1077358	atp6	YP_009543489.1	1077358_atp6_YP_009543489.1
-Endoconidiophora resinifera	1580851	atp6	AZB86622.1	1580851_atp6_AZB86622.1
-Verticillium dahliae	27337	atp6	YP_667828.1	27337_atp6_YP_667828.1
-Neurospora crassa OR74A	367110	atp6	YP_009126726.1	367110_atp6_YP_009126726.1
-Fusarium verticillioides	117187	atp6	YP_005088230.1	117187_atp6_YP_005088230.1
-Podospora anserina	2587412	atp6	NP_074918.1	2587412_atp6_NP_074918.1
-Aspergillus flavus	5059	atp6	YP_009133201.1	5059_atp6_YP_009133201.1
-Penicillium digitatum	36651	atp6	YP_004221872.1	36651_atp6_YP_004221872.1
-Trichophyton rubrum	5551	atp6	YP_002970789.1	5551_atp6_YP_002970789.1
-Talaromyces marneffei	37727	atp6	NP_943718.1	37727_atp6_NP_943718.1
-Morchella importuna	1174673	atp6	YP_009722324.1	1174673_atp6_YP_009722324.1
-Erysiphe necator	52586	nad1	QQY98159.1	52586_nad1_QQY98159.1
-Sclerotinia borealis	77105	nad1	YP_009072356.1	77105_nad1_YP_009072356.1
-Scytalidium sp.	1715249	nad1	QDG01214.1	1715249_nad1_QDG01214.1
-Botrytis cinerea B05.10	332648	nad1	AGN49020.1	332648_nad1_AGN49020.1
-Rhynchosporium commune	914237	nad1	YP_008965360.1	914237_nad1_YP_008965360.1
-Rhynchosporium agropyri	914238	nad1	YP_008965312.1	914238_nad1_YP_008965312.1
-Rhynchosporium secalis	38038	nad1	YP_008965433.1	38038_nad1_YP_008965433.1
-Rhynchosporium orthosporum	210010	nad1	YP_008965393.1	210010_nad1_YP_008965393.1
-Glarea lozoyensis	101852	nad1	YP_009306755.1	101852_nad1_YP_009306755.1
-Phialocephala subalpina	576137	nad1	YP_004733038.1	576137_nad1_YP_004733038.1
-Pseudogymnoascus destructans	655981	nad1	YP_009348225.1	655981_nad1_YP_009348225.1
-Cairneyella variabilis	1802957	nad1	YP_009240970.1	1802957_nad1_YP_009240970.1
-Pseudogymnoascus pannorum	79858	nad1	YP_009154291.1	79858_nad1_YP_009154291.1
-Pseudocercospora fijiensis	1873960	nad1	YP_009681549.1	1873960_nad1_YP_009681549.1
-Zymoseptoria tritici	1047171	nad1	AYO45638.1	1047171_nad1_AYO45638.1
-Zasmidium cellare	395010	nad1	YP_009257386.1	395010_nad1_YP_009257386.1
-Bipolaris cookei	74410	nad1	YP_009445499.1	74410_nad1_YP_009445499.1
-Stemphylium lycopersici	183478	nad1	YP_009433976.1	183478_nad1_YP_009433976.1
-Coniothyrium glycines	1077358	nad1	YP_009543512.1	1077358_nad1_YP_009543512.1
-Endoconidiophora resinifera	1580851	nad1	AZB86619.1	1580851_nad1_AZB86619.1
-Verticillium dahliae	27337	nad1	YP_667825.1	27337_nad1_YP_667825.1
-Neurospora crassa OR74A	367110	nad1	YP_009126719.1	367110_nad1_YP_009126719.1
-Fusarium verticillioides	117187	nad1	YP_005088226.1	117187_nad1_YP_005088226.1
-Podospora anserina	2587412	nad1	NP_074956.1	2587412_nad1_NP_074956.1
-Aspergillus flavus	5059	nad1	YP_009133205.1	5059_nad1_YP_009133205.1
-Penicillium digitatum	36651	nad1	YP_004221869.1	36651_nad1_YP_004221869.1
-Trichophyton rubrum	5551	nad1	YP_002970787.1	5551_nad1_YP_002970787.1
-Talaromyces marneffei	37727	nad1	NP_943715.1	37727_nad1_NP_943715.1
-Morchella importuna	1174673	nad1	YP_009722312.1	1174673_nad1_YP_009722312.1
-Erysiphe necator	52586	nad2	QQY98158.1	52586_nad2_QQY98158.1
-Sclerotinia borealis	77105	nad2	YP_009072371.1	77105_nad2_YP_009072371.1
-Scytalidium sp.	1715249	nad2	QDG01239.1	1715249_nad2_QDG01239.1
-Botrytis cinerea B05.10	332648	nad2	AGN49027.1	332648_nad2_AGN49027.1
-Rhynchosporium commune	914237	nad2	YP_008965368.1	914237_nad2_YP_008965368.1
-Rhynchosporium agropyri	914238	nad2	YP_008965321.1	914238_nad2_YP_008965321.1
-Rhynchosporium secalis	38038	nad2	YP_008965442.1	38038_nad2_YP_008965442.1
-Rhynchosporium orthosporum	210010	nad2	YP_008965402.1	210010_nad2_YP_008965402.1
-Glarea lozoyensis	101852	nad2	YP_009306751.1	101852_nad2_YP_009306751.1
-Phialocephala subalpina	576137	nad2	YP_004733047.1	576137_nad2_YP_004733047.1
-Pseudogymnoascus destructans	655981	nad2	YP_009348230.1	655981_nad2_YP_009348230.1
-Cairneyella variabilis	1802957	nad2	YP_009240978.1	1802957_nad2_YP_009240978.1
-Pseudogymnoascus pannorum	79858	nad2	YP_009154281.1	79858_nad2_YP_009154281.1
-Pseudocercospora fijiensis	1873960	nad2	YP_009681556.1	1873960_nad2_YP_009681556.1
-Zymoseptoria tritici	1047171	nad2	AYO45626.1	1047171_nad2_AYO45626.1
-Zasmidium cellare	395010	nad2	YP_009257390.1	395010_nad2_YP_009257390.1
-Bipolaris cookei	74410	nad2	YP_009445516.1	74410_nad2_YP_009445516.1
-Stemphylium lycopersici	183478	nad2	YP_009433968.1	183478_nad2_YP_009433968.1
-Coniothyrium glycines	1077358	nad2	YP_009543516.1	1077358_nad2_YP_009543516.1
-Endoconidiophora resinifera	1580851	nad2	AZB86626.1	1580851_nad2_AZB86626.1
-Verticillium dahliae	27337	nad2	YP_667823.1	27337_nad2_YP_667823.1
-Neurospora crassa OR74A	367110	nad2	YP_009126707.1	367110_nad2_YP_009126707.1
-Fusarium verticillioides	117187	nad2	YP_005088214.1	117187_nad2_YP_005088214.1
-Podospora anserina	2587412	nad2	NP_074912.1	2587412_nad2_NP_074912.1
-Aspergillus flavus	5059	nad2	YP_009133199.1	5059_nad2_YP_009133199.1
-Penicillium digitatum	36651	nad2	YP_004221867.1	36651_nad2_YP_004221867.1
-Trichophyton rubrum	5551	nad2	YP_002970784.1	5551_nad2_YP_002970784.1
-Talaromyces marneffei	37727	nad2	NP_943711.1	37727_nad2_NP_943711.1
-Morchella importuna	1174673	nad2	YP_009722361.1	1174673_nad2_YP_009722361.1
-Erysiphe necator	52586	nad3	QQY98155.1	52586_nad3_QQY98155.1
-Sclerotinia borealis	77105	nad3	YP_009072378.1	77105_nad3_YP_009072378.1
-Scytalidium sp.	1715249	nad3	QDG01241.1	1715249_nad3_QDG01241.1
-Botrytis cinerea B05.10	332648	nad3	AGN49029.1	332648_nad3_AGN49029.1
-Rhynchosporium commune	914237	nad3	YP_008965369.1	914237_nad3_YP_008965369.1
-Rhynchosporium agropyri	914238	nad3	YP_008965322.1	914238_nad3_YP_008965322.1
-Rhynchosporium secalis	38038	nad3	YP_008965443.1	38038_nad3_YP_008965443.1
-Rhynchosporium orthosporum	210010	nad3	YP_008965403.1	210010_nad3_YP_008965403.1
-Glarea lozoyensis	101852	nad3	YP_009306752.1	101852_nad3_YP_009306752.1
-Phialocephala subalpina	576137	nad3	YP_004733048.1	576137_nad3_YP_004733048.1
-Pseudogymnoascus destructans	655981	nad3	YP_009348231.1	655981_nad3_YP_009348231.1
-Cairneyella variabilis	1802957	nad3	YP_009240977.1	1802957_nad3_YP_009240977.1
-Pseudogymnoascus pannorum	79858	nad3	YP_009154282.1	79858_nad3_YP_009154282.1
-Pseudocercospora fijiensis	1873960	nad3	YP_009681555.1	1873960_nad3_YP_009681555.1
-Zymoseptoria tritici	1047171	nad3	AYO45627.1	1047171_nad3_AYO45627.1
-Zasmidium cellare	395010	nad3	YP_009257389.1	395010_nad3_YP_009257389.1
-Bipolaris cookei	74410	nad3	YP_009445514.1	74410_nad3_YP_009445514.1
-Stemphylium lycopersici	183478	nad3	YP_009433969.1	183478_nad3_YP_009433969.1
-Coniothyrium glycines	1077358	nad3	YP_009543515.1	1077358_nad3_YP_009543515.1
-Endoconidiophora resinifera	1580851	nad3	AZB86627.1	1580851_nad3_AZB86627.1
-Verticillium dahliae	27337	nad3	YP_667824.1	27337_nad3_YP_667824.1
-Neurospora crassa OR74A	367110	nad3	YP_009126708.1	367110_nad3_YP_009126708.1
-Fusarium verticillioides	117187	nad3	YP_005088216.1	117187_nad3_YP_005088216.1
-Podospora anserina	2587412	nad3	NP_074913.1	2587412_nad3_NP_074913.1
-Aspergillus flavus	5059	nad3	YP_009133195.1	5059_nad3_YP_009133195.1
-Penicillium digitatum	36651	nad3	YP_004221863.1	36651_nad3_YP_004221863.1
-Trichophyton rubrum	5551	nad3	YP_002970786.1	5551_nad3_YP_002970786.1
-Talaromyces marneffei	37727	nad3	NP_943732.1	37727_nad3_NP_943732.1
-Morchella importuna	1174673	nad3	YP_009722362.1	1174673_nad3_YP_009722362.1
-Erysiphe necator	52586	nad4	QQY98162.1	52586_nad4_QQY98162.1
-Sclerotinia borealis	77105	nad4	YP_009072344.1	77105_nad4_YP_009072344.1
-Scytalidium sp.	1715249	nad4	QDG01215.1	1715249_nad4_QDG01215.1
-Botrytis cinerea B05.10	332648	nad4	AGN49012.1	332648_nad4_AGN49012.1
-Rhynchosporium commune	914237	nad4	YP_008965361.1	914237_nad4_YP_008965361.1
-Rhynchosporium agropyri	914238	nad4	YP_008965313.1	914238_nad4_YP_008965313.1
-Rhynchosporium secalis	38038	nad4	YP_008965434.1	38038_nad4_YP_008965434.1
-Rhynchosporium orthosporum	210010	nad4	YP_008965394.1	210010_nad4_YP_008965394.1
-Glarea lozoyensis	101852	nad4	YP_009306735.1	101852_nad4_YP_009306735.1
-Phialocephala subalpina	576137	nad4	YP_004733039.1	576137_nad4_YP_004733039.1
-Pseudogymnoascus destructans	655981	nad4	YP_009348232.1	655981_nad4_YP_009348232.1
-Cairneyella variabilis	1802957	nad4	YP_009240969.1	1802957_nad4_YP_009240969.1
-Pseudogymnoascus pannorum	79858	nad4	YP_009154283.1	79858_nad4_YP_009154283.1
-Pseudocercospora fijiensis	1873960	nad4	YP_009681543.1	1873960_nad4_YP_009681543.1
-Zymoseptoria tritici	1047171	nad4	AYO45630.1	1047171_nad4_AYO45630.1
-Zasmidium cellare	395010	nad4	YP_009257392.1	395010_nad4_YP_009257392.1
-Bipolaris cookei	74410	nad4	YP_009445551.1	74410_nad4_YP_009445551.1
-Stemphylium lycopersici	183478	nad4	YP_009433982.1	183478_nad4_YP_009433982.1
-Coniothyrium glycines	1077358	nad4	YP_009543514.1	1077358_nad4_YP_009543514.1
-Endoconidiophora resinifera	1580851	nad4	AZB86620.1	1580851_nad4_AZB86620.1
-Verticillium dahliae	27337	nad4	YP_667826.1	27337_nad4_YP_667826.1
-Neurospora crassa OR74A	367110	nad4	YP_009126721.1	367110_nad4_YP_009126721.1
-Fusarium verticillioides	117187	nad4	YP_005088228.1	117187_nad4_YP_005088228.1
-Podospora anserina	2587412	nad4	NP_074953.1	2587412_nad4_NP_074953.1
-Aspergillus flavus	5059	nad4	YP_009133206.1	5059_nad4_YP_009133206.1
-Penicillium digitatum	36651	nad4	YP_004221870.1	36651_nad4_YP_004221870.1
-Trichophyton rubrum	5551	nad4	YP_002970788.1	5551_nad4_YP_002970788.1
-Talaromyces marneffei	37727	nad4	NP_943716.1	37727_nad4_NP_943716.1
-Morchella importuna	1174673	nad4	YP_009722366.1	1174673_nad4_YP_009722366.1
-Erysiphe necator	52586	nad4L	QQY98150.1	52586_nad4L_QQY98150.1
-Sclerotinia borealis	77105	nad4L	YP_009072393.1	77105_nad4L_YP_009072393.1
-Scytalidium sp.	1715249	nad4L	QDG01249.2	1715249_nad4L_QDG01249.2
-Botrytis cinerea B05.10	332648	nad4L	AGN48994.1	332648_nad4L_AGN48994.1
-Rhynchosporium commune	914237	nad4L	YP_008965376.1	914237_nad4L_YP_008965376.1
-Rhynchosporium agropyri	914238	nad4L	YP_008965329.1	914238_nad4L_YP_008965329.1
-Rhynchosporium secalis	38038	nad4L	YP_008965450.1	38038_nad4L_YP_008965450.1
-Rhynchosporium orthosporum	210010	nad4L	YP_008965409.1	210010_nad4L_YP_008965409.1
-Glarea lozoyensis	101852	nad4L	YP_009306746.1	101852_nad4L_YP_009306746.1
-Phialocephala subalpina	576137	nad4L	YP_004733052.1	576137_nad4L_YP_004733052.1
-Pseudogymnoascus destructans	655981	nad4L	YP_009348222.1	655981_nad4L_YP_009348222.1
-Cairneyella variabilis	1802957	nad4L	YP_009240975.1	1802957_nad4L_YP_009240975.1
-Pseudogymnoascus pannorum	79858	nad4L	YP_009154288.1	79858_nad4L_YP_009154288.1
-Pseudocercospora fijiensis	1873960	nad4L	YP_009681535.1	1873960_nad4L_YP_009681535.1
-Zymoseptoria tritici	1047171	nad4L	AYO45632.1	1047171_nad4L_AYO45632.1
-Zasmidium cellare	395010	nad4L	YP_009257387.1	395010_nad4L_YP_009257387.1
-Bipolaris cookei	74410	nad4L	YP_009445552.1	74410_nad4L_YP_009445552.1
-Stemphylium lycopersici	183478	nad4L	YP_009433979.1	183478_nad4L_YP_009433979.1
-Coniothyrium glycines	1077358	nad4L	YP_009543507.1	1077358_nad4L_YP_009543507.1
-Endoconidiophora resinifera	1580851	nad4L	AZB86629.1	1580851_nad4L_AZB86629.1
-Verticillium dahliae	27337	nad4L	YP_667833.1	27337_nad4L_YP_667833.1
-Neurospora crassa OR74A	367110	nad4L	YP_009126709.1	367110_nad4L_YP_009126709.1
-Fusarium verticillioides	117187	nad4L	YP_005088219.1	117187_nad4L_YP_005088219.1
-Podospora anserina	2587412	nad4L	NP_074941.1	2587412_nad4L_NP_074941.1
-Aspergillus flavus	5059	nad4L	YP_009133197.1	5059_nad4L_YP_009133197.1
-Penicillium digitatum	36651	nad4L	YP_004221865.1	36651_nad4L_YP_004221865.1
-Trichophyton rubrum	5551	nad4L	YP_002970782.1	5551_nad4L_YP_002970782.1
-Talaromyces marneffei	37727	nad4L	NP_943709.1	37727_nad4L_NP_943709.1
-Morchella importuna	1174673	nad4L	YP_009722266.1	1174673_nad4L_YP_009722266.1
-Erysiphe necator	52586	nad5	QQY98161.1	52586_nad5_QQY98161.1
-Sclerotinia borealis	77105	nad5	YP_009072394.1	77105_nad5_YP_009072394.1
-Scytalidium sp.	1715249	nad5	QDG01254.1	1715249_nad5_QDG01254.1
-Botrytis cinerea B05.10	332648	nad5	AGN48996.1	332648_nad5_AGN48996.1
-Rhynchosporium commune	914237	nad5	YP_008965377.1	914237_nad5_YP_008965377.1
-Rhynchosporium agropyri	914238	nad5	YP_008965330.1	914238_nad5_YP_008965330.1
-Rhynchosporium secalis	38038	nad5	YP_008965451.1	38038_nad5_YP_008965451.1
-Rhynchosporium orthosporum	210010	nad5	YP_008965410.1	210010_nad5_YP_008965410.1
-Glarea lozoyensis	101852	nad5	YP_009306747.1	101852_nad5_YP_009306747.1
-Phialocephala subalpina	576137	nad5	YP_004733053.1	576137_nad5_YP_004733053.1
-Pseudogymnoascus destructans	655981	nad5	YP_009348223.1	655981_nad5_YP_009348223.1
-Cairneyella variabilis	1802957	nad5	YP_009240974.1	1802957_nad5_YP_009240974.1
-Pseudogymnoascus pannorum	79858	nad5	YP_009154289.1	79858_nad5_YP_009154289.1
-Pseudocercospora fijiensis	1873960	nad5	YP_009681532.1	1873960_nad5_YP_009681532.1
-Zymoseptoria tritici	1047171	nad5	AYO45633.1	1047171_nad5_AYO45633.1
-Zasmidium cellare	395010	nad5	YP_009257388.1	395010_nad5_YP_009257388.1
-Bipolaris cookei	74410	nad5	YP_009445553.1	74410_nad5_YP_009445553.1
-Stemphylium lycopersici	183478	nad5	YP_009433978.1	183478_nad5_YP_009433978.1
-Coniothyrium glycines	1077358	nad5	YP_009543503.1	1077358_nad5_YP_009543503.1
-Endoconidiophora resinifera	1580851	nad5	AZB86630.1	1580851_nad5_AZB86630.1
-Verticillium dahliae	27337	nad5	YP_667834.1	27337_nad5_YP_667834.1
-Neurospora crassa OR74A	367110	nad5	YP_009126711.1	367110_nad5_YP_009126711.1
-Fusarium verticillioides	117187	nad5	YP_005088220.1	117187_nad5_YP_005088220.1
-Podospora anserina	2587412	nad5	NP_074943.1	2587412_nad5_NP_074943.1
-Aspergillus flavus	5059	nad5	YP_009133198.1	5059_nad5_YP_009133198.1
-Penicillium digitatum	36651	nad5	YP_004221866.1	36651_nad5_YP_004221866.1
-Trichophyton rubrum	5551	nad5	YP_002970783.1	5551_nad5_YP_002970783.1
-Talaromyces marneffei	37727	nad5	NP_943710.1	37727_nad5_NP_943710.1
-Morchella importuna	1174673	nad5	YP_009722267.1	1174673_nad5_YP_009722267.1
-Erysiphe necator	52586	nad6	QQY98160.1	52586_nad6_QQY98160.1
-Sclerotinia borealis	77105	nad6	YP_009072400.1	77105_nad6_YP_009072400.1
-Scytalidium sp.	1715249	nad6	QDG01223.1	1715249_nad6_QDG01223.1
-Botrytis cinerea B05.10	332648	nad6	AGN48998.1	332648_nad6_AGN48998.1
-Rhynchosporium commune	914237	nad6	YP_008965365.1	914237_nad6_YP_008965365.1
-Rhynchosporium agropyri	914238	nad6	YP_008965317.1	914238_nad6_YP_008965317.1
-Rhynchosporium secalis	38038	nad6	YP_008965438.1	38038_nad6_YP_008965438.1
-Rhynchosporium orthosporum	210010	nad6	YP_008965397.1	210010_nad6_YP_008965397.1
-Glarea lozoyensis	101852	nad6	YP_009306736.1	101852_nad6_YP_009306736.1
-Phialocephala subalpina	576137	nad6	YP_004733043.1	576137_nad6_YP_004733043.1
-Pseudogymnoascus destructans	655981	nad6	YP_009348227.1	655981_nad6_YP_009348227.1
-Cairneyella variabilis	1802957	nad6	YP_009240966.1	1802957_nad6_YP_009240966.1
-Pseudogymnoascus pannorum	79858	nad6	YP_009154293.1	79858_nad6_YP_009154293.1
-Pseudocercospora fijiensis	1873960	nad6	YP_009681531.1	1873960_nad6_YP_009681531.1
-Zymoseptoria tritici	1047171	nad6	AYO45629.1	1047171_nad6_AYO45629.1
-Zasmidium cellare	395010	nad6	YP_009257396.1	395010_nad6_YP_009257396.1
-Bipolaris cookei	74410	nad6	YP_009445536.1	74410_nad6_YP_009445536.1
-Stemphylium lycopersici	183478	nad6	YP_009434002.1	183478_nad6_YP_009434002.1
-Coniothyrium glycines	1077358	nad6	YP_009543521.1	1077358_nad6_YP_009543521.1
-Endoconidiophora resinifera	1580851	nad6	AZB86624.1	1580851_nad6_AZB86624.1
-Verticillium dahliae	27337	nad6	YP_667830.1	27337_nad6_YP_667830.1
-Neurospora crassa OR74A	367110	nad6	YP_009126705.1	367110_nad6_YP_009126705.1
-Fusarium verticillioides	117187	nad6	YP_005088232.1	117187_nad6_YP_005088232.1
-Podospora anserina	2587412	nad6	NP_074916.1	2587412_nad6_NP_074916.1
-Aspergillus flavus	5059	nad6	YP_009133202.1	5059_nad6_YP_009133202.1
-Penicillium digitatum	36651	nad6	YP_004221873.1	36651_nad6_YP_004221873.1
-Trichophyton rubrum	5551	nad6	YP_002970790.1	5551_nad6_YP_002970790.1
-Talaromyces marneffei	37727	nad6	NP_943719.1	37727_nad6_NP_943719.1
-Morchella importuna	1174673	nad6	YP_009722250.1	1174673_nad6_YP_009722250.1
-Erysiphe necator	52586	cox1	QQY98153.1	52586_cox1_QQY98153.1
-Sclerotinia borealis	77105	cox1	YP_009072327.1	77105_cox1_YP_009072327.1
-Scytalidium sp.	1715249	cox1	QDG01210.1	1715249_cox1_QDG01210.1
-Botrytis cinerea B05.10	332648	cox1	AGN49004.1	332648_cox1_AGN49004.1
-Rhynchosporium commune	914237	cox1	YP_008965340.1	914237_cox1_YP_008965340.1
-Rhynchosporium agropyri	914238	cox1	YP_008965293.1	914238_cox1_YP_008965293.1
-Rhynchosporium secalis	38038	cox1	YP_008965413.1	38038_cox1_YP_008965413.1
-Rhynchosporium orthosporum	210010	cox1	YP_008965386.1	210010_cox1_YP_008965386.1
-Glarea lozoyensis	101852	cox1	YP_009306749.1	101852_cox1_YP_009306749.1
-Phialocephala subalpina	576137	cox1	YP_004733034.1	576137_cox1_YP_004733034.1
-Pseudogymnoascus destructans	655981	cox1	YP_009348219.1	655981_cox1_YP_009348219.1
-Cairneyella variabilis	1802957	cox1	YP_009240972.1	1802957_cox1_YP_009240972.1
-Pseudogymnoascus pannorum	79858	cox1	YP_009154285.1	79858_cox1_YP_009154285.1
-Pseudocercospora fijiensis	1873960	cox1	YP_009681550.1	1873960_cox1_YP_009681550.1
-Zymoseptoria tritici	1047171	cox1	AYO45637.1	1047171_cox1_AYO45637.1
-Zasmidium cellare	395010	cox1	YP_009257397.1	395010_cox1_YP_009257397.1
-Bipolaris cookei	74410	cox1	YP_009445521.1	74410_cox1_YP_009445521.1
-Stemphylium lycopersici	183478	cox1	YP_009433995.1	183478_cox1_YP_009433995.1
-Coniothyrium glycines	1077358	cox1	YP_009543491.1	1077358_cox1_YP_009543491.1
-Endoconidiophora resinifera	1580851	cox1	AZB86618.1	1580851_cox1_AZB86618.1
-Verticillium dahliae	27337	cox1	YP_667836.1	27337_cox1_YP_667836.1
-Neurospora crassa OR74A	367110	cox1	YP_009126717.1	367110_cox1_YP_009126717.1
-Fusarium verticillioides	117187	cox1	YP_005088222.1	117187_cox1_YP_005088222.1
-Podospora anserina	2587412	cox1	NP_074924.1	2587412_cox1_NP_074924.1
-Aspergillus flavus	5059	cox1	YP_009133193.1	5059_cox1_YP_009133193.1
-Penicillium digitatum	36651	cox1	YP_004221861.1	36651_cox1_YP_004221861.1
-Trichophyton rubrum	5551	cox1	YP_002970779.1	5551_cox1_YP_002970779.1
-Talaromyces marneffei	37727	cox1	NP_943723.1	37727_cox1_NP_943723.1
-Morchella importuna	1174673	cox1	YP_009722382.1	1174673_cox1_YP_009722382.1
-Erysiphe necator	52586	cox2	QQY98151.1	52586_cox2_QQY98151.1
-Sclerotinia borealis	77105	cox2	YP_009072381.1	77105_cox2_YP_009072381.1
-Scytalidium sp.	1715249	cox2	QDG01246.1	1715249_cox2_QDG01246.1
-Botrytis cinerea B05.10	332648	cox2	AGN49030.1	332648_cox2_AGN49030.1
-Rhynchosporium commune	914237	cox2	YP_008965371.1	914237_cox2_YP_008965371.1
-Rhynchosporium agropyri	914238	cox2	YP_008965324.1	914238_cox2_YP_008965324.1
-Rhynchosporium secalis	38038	cox2	YP_008965445.1	38038_cox2_YP_008965445.1
-Rhynchosporium orthosporum	210010	cox2	YP_008965405.1	210010_cox2_YP_008965405.1
-Glarea lozoyensis	101852	cox2	YP_009306756.1	101852_cox2_YP_009306756.1
-Phialocephala subalpina	576137	cox2	YP_004733049.1	576137_cox2_YP_004733049.1
-Pseudogymnoascus destructans	655981	cox2	YP_009348233.1	655981_cox2_YP_009348233.1
-Cairneyella variabilis	1802957	cox2	YP_009240976.1	1802957_cox2_YP_009240976.1
-Pseudogymnoascus pannorum	79858	cox2	YP_009154284.1	79858_cox2_YP_009154284.1
-Pseudocercospora fijiensis	1873960	cox2	YP_009681548.1	1873960_cox2_YP_009681548.1
-Zymoseptoria tritici	1047171	cox2	AYO45622.1	1047171_cox2_AYO45622.1
-Zasmidium cellare	395010	cox2	YP_009257384.1	395010_cox2_YP_009257384.1
-Bipolaris cookei	74410	cox2	YP_009445518.1	74410_cox2_YP_009445518.1
-Stemphylium lycopersici	183478	cox2	YP_009433992.1	183478_cox2_YP_009433992.1
-Coniothyrium glycines	1077358	cox2	YP_009543498.1	1077358_cox2_YP_009543498.1
-Endoconidiophora resinifera	1580851	cox2	AZB86628.1	1580851_cox2_AZB86628.1
-Verticillium dahliae	27337	cox2	YP_667832.1	27337_cox2_YP_667832.1
-Neurospora crassa OR74A	367110	cox2	YP_009126729.1	367110_cox2_YP_009126729.1
-Fusarium verticillioides	117187	cox2	YP_005088218.1	117187_cox2_YP_005088218.1
-Podospora anserina	2587412	cox2	NP_074950.1	2587412_cox2_NP_074950.1
-Aspergillus flavus	5059	cox2	YP_009133196.1	5059_cox2_YP_009133196.1
-Penicillium digitatum	36651	cox2	YP_004221864.1	36651_cox2_YP_004221864.1
-Trichophyton rubrum	5551	cox2	YP_002970781.1	5551_cox2_YP_002970781.1
-Talaromyces marneffei	37727	cox2	NP_943733.1	37727_cox2_NP_943733.1
-Morchella importuna	1174673	cox2	YP_009722255.1	1174673_cox2_YP_009722255.1
-Erysiphe necator	52586	cox3	QQY98152.1	52586_cox3_QQY98152.1
-Sclerotinia borealis	77105	cox3	YP_009072402.1	77105_cox3_YP_009072402.1
-Scytalidium sp.	1715249	cox3	QDG01225.1	1715249_cox3_QDG01225.1
-Botrytis cinerea B05.10	332648	cox3	AGN48999.1	332648_cox3_AGN48999.1
-Rhynchosporium commune	914237	cox3	YP_008965366.1	914237_cox3_YP_008965366.1
-Rhynchosporium agropyri	914238	cox3	YP_008965318.1	914238_cox3_YP_008965318.1
-Rhynchosporium secalis	38038	cox3	YP_008965439.1	38038_cox3_YP_008965439.1
-Rhynchosporium orthosporum	210010	cox3	YP_008965398.1	210010_cox3_YP_008965398.1
-Glarea lozoyensis	101852	cox3	YP_009306737.1	101852_cox3_YP_009306737.1
-Phialocephala subalpina	576137	cox3	YP_004733044.1	576137_cox3_YP_004733044.1
-Pseudogymnoascus destructans	655981	cox3	YP_009348228.1	655981_cox3_YP_009348228.1
-Cairneyella variabilis	1802957	cox3	YP_009240965.1	1802957_cox3_YP_009240965.1
-Pseudogymnoascus pannorum	79858	cox3	YP_009154294.1	79858_cox3_YP_009154294.1
-Pseudocercospora fijiensis	1873960	cox3	YP_009681546.1	1873960_cox3_YP_009681546.1
-Zymoseptoria tritici	1047171	cox3	AYO45640.1	1047171_cox3_AYO45640.1
-Zasmidium cellare	395010	cox3	YP_009257393.1	395010_cox3_YP_009257393.1
-Bipolaris cookei	74410	cox3	YP_009445504.1	74410_cox3_YP_009445504.1
-Stemphylium lycopersici	183478	cox3	YP_009433970.1	183478_cox3_YP_009433970.1
-Coniothyrium glycines	1077358	cox3	YP_009543517.1	1077358_cox3_YP_009543517.1
-Endoconidiophora resinifera	1580851	cox3	AZB86623.1	1580851_cox3_AZB86623.1
-Verticillium dahliae	27337	cox3	YP_667829.1	27337_cox3_YP_667829.1
-Neurospora crassa OR74A	367110	cox3	YP_009126704.1	367110_cox3_YP_009126704.1
-Fusarium verticillioides	117187	cox3	YP_005088231.1	117187_cox3_YP_005088231.1
-Podospora anserina	2587412	cox3	NP_074915.1	2587412_cox3_NP_074915.1
-Aspergillus flavus	5059	cox3	YP_009133203.1	5059_cox3_YP_009133203.1
-Penicillium digitatum	36651	cox3	YP_004221874.1	36651_cox3_YP_004221874.1
-Trichophyton rubrum	5551	cox3	YP_002970774.1	5551_cox3_YP_002970774.1
-Talaromyces marneffei	37727	cox3	NP_943721.1	37727_cox3_NP_943721.1
-Morchella importuna	1174673	cox3	YP_009722252.1	1174673_cox3_YP_009722252.1
-Erysiphe necator	52586	cob	QQY98156.1	52586_cob_QQY98156.1
-Sclerotinia borealis	77105	cob	YP_009072347.1	77105_cob_YP_009072347.1
-Scytalidium sp.	1715249	cob	QDG01260.1	1715249_cob_QDG01260.1
-Botrytis cinerea B05.10	332648	cob	AGN49013.1	332648_cob_AGN49013.1
-Rhynchosporium commune	914237	cob	YP_008965385.1	914237_cob_YP_008965385.1
-Rhynchosporium agropyri	914238	cob	YP_008965339.1	914238_cob_YP_008965339.1
-Rhynchosporium secalis	38038	cob	YP_008965459.1	38038_cob_YP_008965459.1
-Rhynchosporium orthosporum	210010	cob	YP_008965412.1	210010_cob_YP_008965412.1
-Glarea lozoyensis	101852	cob	YP_009306742.1	101852_cob_YP_009306742.1
-Phialocephala subalpina	576137	cob	YP_004733054.1	576137_cob_YP_004733054.1
-Pseudogymnoascus destructans	655981	cob	YP_009348224.1	655981_cob_YP_009348224.1
-Cairneyella variabilis	1802957	cob	YP_009240973.1	1802957_cob_YP_009240973.1
-Pseudogymnoascus pannorum	79858	cob	YP_009154290.1	79858_cob_YP_009154290.1
-Pseudocercospora fijiensis	1873960	cob	YP_009681541.1	1873960_cob_YP_009681541.1
-Zymoseptoria tritici	1047171	cob	AYO45620.1	1047171_cob_AYO45620.1
-Zasmidium cellare	395010	cob	YP_009257391.1	395010_cob_YP_009257391.1
-Bipolaris cookei	74410	cob	YP_009445542.1	74410_cob_YP_009445542.1
-Stemphylium lycopersici	183478	cob	YP_009433983.1	183478_cob_YP_009433983.1
-Coniothyrium glycines	1077358	cob	YP_009543510.1	1077358_cob_YP_009543510.1
-Endoconidiophora resinifera	1580851	cob	AZB86631.1	1580851_cob_AZB86631.1
-Verticillium dahliae	27337	cob	YP_667835.1	27337_cob_YP_667835.1
-Neurospora crassa OR74A	367110	cob	YP_009126714.1	367110_cob_YP_009126714.1
-Fusarium verticillioides	117187	cob	YP_005088221.1	117187_cob_YP_005088221.1
-Podospora anserina	2587412	cob	NP_074920.2	2587412_cob_NP_074920.2
-Aspergillus flavus	5059	cob	YP_009133191.1	5059_cob_YP_009133191.1
-Penicillium digitatum	36651	cob	YP_004221868.1	36651_cob_YP_004221868.1
-Trichophyton rubrum	5551	cob	YP_002970785.1	5551_cob_YP_002970785.1
-Talaromyces marneffei	37727	cob	NP_943713.1	37727_cob_NP_943713.1
-Morchella importuna	1174673	cob	YP_009722332.1	1174673_cob_YP_009722332.1
+Erysiphe necator	52586	atp6	QQY98154.1
+Sclerotinia borealis	77105	atp6	YP_009072362.1
+Scytalidium sp.	1715249	atp6	QDG01220.1
+Botrytis cinerea B05.10	332648	atp6	AGN49024.1
+Rhynchosporium commune	914237	atp6	YP_008965364.1
+Rhynchosporium agropyri	914238	atp6	YP_008965316.1
+Rhynchosporium secalis	38038	atp6	YP_008965437.1
+Rhynchosporium orthosporum	210010	atp6	YP_008965396.1
+Glarea lozoyensis	101852	atp6	YP_009306754.1
+Phialocephala subalpina	576137	atp6	YP_004733041.1
+Pseudogymnoascus destructans	655981	atp6	YP_009348226.1
+Cairneyella variabilis	1802957	atp6	YP_009240967.1
+Pseudogymnoascus pannorum	79858	atp6	YP_009154292.1
+Monilinia laxa	61186	atp6	YP_009945075
+Antarctomyces pellizariae	1955577	atp6	YP_009827978
+Pseudocercospora fijiensis	1873960	atp6	YP_009681558.1
+Zymoseptoria tritici	1047171	atp6	AYO45644.1
+Zasmidium cellare	395010	atp6	YP_009257394.1
+Bipolaris cookei	74410	atp6	YP_009445538.1
+Stemphylium lycopersici	183478	atp6	YP_009433967.1
+Coniothyrium glycines	1077358	atp6	YP_009543489.1
+Endoconidiophora resinifera	1580851	atp6	AZB86622.1
+Verticillium dahliae	27337	atp6	YP_667828.1
+Neurospora crassa OR74A	367110	atp6	YP_009126726.1
+Fusarium verticillioides	117187	atp6	YP_005088230.1
+Podospora anserina	2587412	atp6	NP_074918.1
+Aspergillus flavus	5059	atp6	YP_009133201.1
+Penicillium digitatum	36651	atp6	YP_004221872.1
+Trichophyton rubrum	5551	atp6	YP_002970789.1
+Talaromyces marneffei	37727	atp6	NP_943718.1
+Morchella importuna	1174673	atp6	YP_009722324.1
+Erysiphe necator	52586	nad1	QQY98159.1
+Sclerotinia borealis	77105	nad1	YP_009072356.1
+Scytalidium sp.	1715249	nad1	QDG01214.1
+Botrytis cinerea B05.10	332648	nad1	AGN49020.1
+Rhynchosporium commune	914237	nad1	YP_008965360.1
+Rhynchosporium agropyri	914238	nad1	YP_008965312.1
+Rhynchosporium secalis	38038	nad1	YP_008965433.1
+Rhynchosporium orthosporum	210010	nad1	YP_008965393.1
+Glarea lozoyensis	101852	nad1	YP_009306755.1
+Phialocephala subalpina	576137	nad1	YP_004733038.1
+Pseudogymnoascus destructans	655981	nad1	YP_009348225.1
+Cairneyella variabilis	1802957	nad1	YP_009240970.1
+Pseudogymnoascus pannorum	79858	nad1	YP_009154291.1
+Monilinia laxa	61186	nad1	YP_009945071
+Antarctomyces pellizariae	1955577	nad1	YP_009827977
+Pseudocercospora fijiensis	1873960	nad1	YP_009681549.1
+Zymoseptoria tritici	1047171	nad1	AYO45638.1
+Zasmidium cellare	395010	nad1	YP_009257386.1
+Bipolaris cookei	74410	nad1	YP_009445499.1
+Stemphylium lycopersici	183478	nad1	YP_009433976.1
+Coniothyrium glycines	1077358	nad1	YP_009543512.1
+Endoconidiophora resinifera	1580851	nad1	AZB86619.1
+Verticillium dahliae	27337	nad1	YP_667825.1
+Neurospora crassa OR74A	367110	nad1	YP_009126719.1
+Fusarium verticillioides	117187	nad1	YP_005088226.1
+Podospora anserina	2587412	nad1	NP_074956.1
+Aspergillus flavus	5059	nad1	YP_009133205.1
+Penicillium digitatum	36651	nad1	YP_004221869.1
+Trichophyton rubrum	5551	nad1	YP_002970787.1
+Talaromyces marneffei	37727	nad1	NP_943715.1
+Morchella importuna	1174673	nad1	YP_009722312.1
+Erysiphe necator	52586	nad2	QQY98158.1
+Sclerotinia borealis	77105	nad2	YP_009072371.1
+Scytalidium sp.	1715249	nad2	QDG01239.1
+Botrytis cinerea B05.10	332648	nad2	AGN49027.1
+Rhynchosporium commune	914237	nad2	YP_008965368.1
+Rhynchosporium agropyri	914238	nad2	YP_008965321.1
+Rhynchosporium secalis	38038	nad2	YP_008965442.1
+Rhynchosporium orthosporum	210010	nad2	YP_008965402.1
+Glarea lozoyensis	101852	nad2	YP_009306751.1
+Phialocephala subalpina	576137	nad2	YP_004733047.1
+Pseudogymnoascus destructans	655981	nad2	YP_009348230.1
+Cairneyella variabilis	1802957	nad2	YP_009240978.1
+Pseudogymnoascus pannorum	79858	nad2	YP_009154281.1
+Monilinia laxa	61186	nad2	YP_009945082
+Antarctomyces pellizariae	1955577	nad2	YP_009827968
+Pseudocercospora fijiensis	1873960	nad2	YP_009681556.1
+Zymoseptoria tritici	1047171	nad2	AYO45626.1
+Zasmidium cellare	395010	nad2	YP_009257390.1
+Bipolaris cookei	74410	nad2	YP_009445516.1
+Stemphylium lycopersici	183478	nad2	YP_009433968.1
+Coniothyrium glycines	1077358	nad2	YP_009543516.1
+Endoconidiophora resinifera	1580851	nad2	AZB86626.1
+Verticillium dahliae	27337	nad2	YP_667823.1
+Neurospora crassa OR74A	367110	nad2	YP_009126707.1
+Fusarium verticillioides	117187	nad2	YP_005088214.1
+Podospora anserina	2587412	nad2	NP_074912.1
+Aspergillus flavus	5059	nad2	YP_009133199.1
+Penicillium digitatum	36651	nad2	YP_004221867.1
+Trichophyton rubrum	5551	nad2	YP_002970784.1
+Talaromyces marneffei	37727	nad2	NP_943711.1
+Morchella importuna	1174673	nad2	YP_009722361.1
+Erysiphe necator	52586	nad3	QQY98155.1
+Sclerotinia borealis	77105	nad3	YP_009072378.1
+Scytalidium sp.	1715249	nad3	QDG01241.1
+Botrytis cinerea B05.10	332648	nad3	AGN49029.1
+Rhynchosporium commune	914237	nad3	YP_008965369.1
+Rhynchosporium agropyri	914238	nad3	YP_008965322.1
+Rhynchosporium secalis	38038	nad3	YP_008965443.1
+Rhynchosporium orthosporum	210010	nad3	YP_008965403.1
+Glarea lozoyensis	101852	nad3	YP_009306752.1
+Phialocephala subalpina	576137	nad3	YP_004733048.1
+Pseudogymnoascus destructans	655981	nad3	YP_009348231.1
+Cairneyella variabilis	1802957	nad3	YP_009240977.1
+Pseudogymnoascus pannorum	79858	nad3	YP_009154282.1
+Monilinia laxa	61186	nad3	YP_009945085
+Antarctomyces pellizariae	1955577	nad3	YP_009827969
+Pseudocercospora fijiensis	1873960	nad3	YP_009681555.1
+Zymoseptoria tritici	1047171	nad3	AYO45627.1
+Zasmidium cellare	395010	nad3	YP_009257389.1
+Bipolaris cookei	74410	nad3	YP_009445514.1
+Stemphylium lycopersici	183478	nad3	YP_009433969.1
+Coniothyrium glycines	1077358	nad3	YP_009543515.1
+Endoconidiophora resinifera	1580851	nad3	AZB86627.1
+Verticillium dahliae	27337	nad3	YP_667824.1
+Neurospora crassa OR74A	367110	nad3	YP_009126708.1
+Fusarium verticillioides	117187	nad3	YP_005088216.1
+Podospora anserina	2587412	nad3	NP_074913.1
+Aspergillus flavus	5059	nad3	YP_009133195.1
+Penicillium digitatum	36651	nad3	YP_004221863.1
+Trichophyton rubrum	5551	nad3	YP_002970786.1
+Talaromyces marneffei	37727	nad3	NP_943732.1
+Morchella importuna	1174673	nad3	YP_009722362.1
+Erysiphe necator	52586	nad4	QQY98162.1
+Sclerotinia borealis	77105	nad4	YP_009072344.1
+Scytalidium sp.	1715249	nad4	QDG01215.1
+Botrytis cinerea B05.10	332648	nad4	AGN49012.1
+Rhynchosporium commune	914237	nad4	YP_008965361.1
+Rhynchosporium agropyri	914238	nad4	YP_008965313.1
+Rhynchosporium secalis	38038	nad4	YP_008965434.1
+Rhynchosporium orthosporum	210010	nad4	YP_008965394.1
+Glarea lozoyensis	101852	nad4	YP_009306735.1
+Phialocephala subalpina	576137	nad4	YP_004733039.1
+Pseudogymnoascus destructans	655981	nad4	YP_009348232.1
+Cairneyella variabilis	1802957	nad4	YP_009240969.1
+Pseudogymnoascus pannorum	79858	nad4	YP_009154283.1
+Monilinia laxa	61186	nad4	YP_009945051
+Antarctomyces pellizariae	1955577	nad4	YP_009827970
+Pseudocercospora fijiensis	1873960	nad4	YP_009681543.1
+Zymoseptoria tritici	1047171	nad4	AYO45630.1
+Zasmidium cellare	395010	nad4	YP_009257392.1
+Bipolaris cookei	74410	nad4	YP_009445551.1
+Stemphylium lycopersici	183478	nad4	YP_009433982.1
+Coniothyrium glycines	1077358	nad4	YP_009543514.1
+Endoconidiophora resinifera	1580851	nad4	AZB86620.1
+Verticillium dahliae	27337	nad4	YP_667826.1
+Neurospora crassa OR74A	367110	nad4	YP_009126721.1
+Fusarium verticillioides	117187	nad4	YP_005088228.1
+Podospora anserina	2587412	nad4	NP_074953.1
+Aspergillus flavus	5059	nad4	YP_009133206.1
+Penicillium digitatum	36651	nad4	YP_004221870.1
+Trichophyton rubrum	5551	nad4	YP_002970788.1
+Talaromyces marneffei	37727	nad4	NP_943716.1
+Morchella importuna	1174673	nad4	YP_009722366.1
+Erysiphe necator	52586	nad4L	QQY98150.1
+Sclerotinia borealis	77105	nad4L	YP_009072393.1
+Scytalidium sp.	1715249	nad4L	QDG01249.2
+Botrytis cinerea B05.10	332648	nad4L	AGN48994.1
+Rhynchosporium commune	914237	nad4L	YP_008965376.1
+Rhynchosporium agropyri	914238	nad4L	YP_008965329.1
+Rhynchosporium secalis	38038	nad4L	YP_008965450.1
+Rhynchosporium orthosporum	210010	nad4L	YP_008965409.1
+Glarea lozoyensis	101852	nad4L	YP_009306746.1
+Phialocephala subalpina	576137	nad4L	YP_004733052.1
+Pseudogymnoascus destructans	655981	nad4L	YP_009348222.1
+Cairneyella variabilis	1802957	nad4L	YP_009240975.1
+Pseudogymnoascus pannorum	79858	nad4L	YP_009154288.1
+Monilinia laxa	61186	nad4L	YP_009945096
+Antarctomyces pellizariae	1955577	nad4L	YP_009827975
+Pseudocercospora fijiensis	1873960	nad4L	YP_009681535.1
+Zymoseptoria tritici	1047171	nad4L	AYO45632.1
+Zasmidium cellare	395010	nad4L	YP_009257387.1
+Bipolaris cookei	74410	nad4L	YP_009445552.1
+Stemphylium lycopersici	183478	nad4L	YP_009433979.1
+Coniothyrium glycines	1077358	nad4L	YP_009543507.1
+Endoconidiophora resinifera	1580851	nad4L	AZB86629.1
+Verticillium dahliae	27337	nad4L	YP_667833.1
+Neurospora crassa OR74A	367110	nad4L	YP_009126709.1
+Fusarium verticillioides	117187	nad4L	YP_005088219.1
+Podospora anserina	2587412	nad4L	NP_074941.1
+Aspergillus flavus	5059	nad4L	YP_009133197.1
+Penicillium digitatum	36651	nad4L	YP_004221865.1
+Trichophyton rubrum	5551	nad4L	YP_002970782.1
+Talaromyces marneffei	37727	nad4L	NP_943709.1
+Morchella importuna	1174673	nad4L	YP_009722266.1
+Erysiphe necator	52586	nad5	QQY98161.1
+Sclerotinia borealis	77105	nad5	YP_009072394.1
+Scytalidium sp.	1715249	nad5	QDG01254.1
+Botrytis cinerea B05.10	332648	nad5	AGN48996.1
+Rhynchosporium commune	914237	nad5	YP_008965377.1
+Rhynchosporium agropyri	914238	nad5	YP_008965330.1
+Rhynchosporium secalis	38038	nad5	YP_008965451.1
+Rhynchosporium orthosporum	210010	nad5	YP_008965410.1
+Glarea lozoyensis	101852	nad5	YP_009306747.1
+Phialocephala subalpina	576137	nad5	YP_004733053.1
+Pseudogymnoascus destructans	655981	nad5	YP_009348223.1
+Cairneyella variabilis	1802957	nad5	YP_009240974.1
+Pseudogymnoascus pannorum	79858	nad5	YP_009154289.1
+Monilinia laxa	61186	nad5	YP_009945102
+Antarctomyces pellizariae	1955577	nad5	YP_009827976
+Pseudocercospora fijiensis	1873960	nad5	YP_009681532.1
+Zymoseptoria tritici	1047171	nad5	AYO45633.1
+Zasmidium cellare	395010	nad5	YP_009257388.1
+Bipolaris cookei	74410	nad5	YP_009445553.1
+Stemphylium lycopersici	183478	nad5	YP_009433978.1
+Coniothyrium glycines	1077358	nad5	YP_009543503.1
+Endoconidiophora resinifera	1580851	nad5	AZB86630.1
+Verticillium dahliae	27337	nad5	YP_667834.1
+Neurospora crassa OR74A	367110	nad5	YP_009126711.1
+Fusarium verticillioides	117187	nad5	YP_005088220.1
+Podospora anserina	2587412	nad5	NP_074943.1
+Aspergillus flavus	5059	nad5	YP_009133198.1
+Penicillium digitatum	36651	nad5	YP_004221866.1
+Trichophyton rubrum	5551	nad5	YP_002970783.1
+Talaromyces marneffei	37727	nad5	NP_943710.1
+Morchella importuna	1174673	nad5	YP_009722267.1
+Erysiphe necator	52586	nad6	QQY98160.1
+Sclerotinia borealis	77105	nad6	YP_009072400.1
+Scytalidium sp.	1715249	nad6	QDG01223.1
+Botrytis cinerea B05.10	332648	nad6	AGN48998.1
+Rhynchosporium commune	914237	nad6	YP_008965365.1
+Rhynchosporium agropyri	914238	nad6	YP_008965317.1
+Rhynchosporium secalis	38038	nad6	YP_008965438.1
+Rhynchosporium orthosporum	210010	nad6	YP_008965397.1
+Glarea lozoyensis	101852	nad6	YP_009306736.1
+Phialocephala subalpina	576137	nad6	YP_004733043.1
+Pseudogymnoascus destructans	655981	nad6	YP_009348227.1
+Cairneyella variabilis	1802957	nad6	YP_009240966.1
+Pseudogymnoascus pannorum	79858	nad6	YP_009154293.1
+Monilinia laxa	61186	nad6	YP_009945116
+Antarctomyces pellizariae	1955577	nad6	YP_009827979
+Pseudocercospora fijiensis	1873960	nad6	YP_009681531.1
+Zymoseptoria tritici	1047171	nad6	AYO45629.1
+Zasmidium cellare	395010	nad6	YP_009257396.1
+Bipolaris cookei	74410	nad6	YP_009445536.1
+Stemphylium lycopersici	183478	nad6	YP_009434002.1
+Coniothyrium glycines	1077358	nad6	YP_009543521.1
+Endoconidiophora resinifera	1580851	nad6	AZB86624.1
+Verticillium dahliae	27337	nad6	YP_667830.1
+Neurospora crassa OR74A	367110	nad6	YP_009126705.1
+Fusarium verticillioides	117187	nad6	YP_005088232.1
+Podospora anserina	2587412	nad6	NP_074916.1
+Aspergillus flavus	5059	nad6	YP_009133202.1
+Penicillium digitatum	36651	nad6	YP_004221873.1
+Trichophyton rubrum	5551	nad6	YP_002970790.1
+Talaromyces marneffei	37727	nad6	NP_943719.1
+Morchella importuna	1174673	nad6	YP_009722250.1
+Erysiphe necator	52586	cox1	QQY98153.1
+Sclerotinia borealis	77105	cox1	YP_009072327.1
+Scytalidium sp.	1715249	cox1	QDG01210.1
+Botrytis cinerea B05.10	332648	cox1	AGN49004.1
+Rhynchosporium commune	914237	cox1	YP_008965340.1
+Rhynchosporium agropyri	914238	cox1	YP_008965293.1
+Rhynchosporium secalis	38038	cox1	YP_008965413.1
+Rhynchosporium orthosporum	210010	cox1	YP_008965386.1
+Glarea lozoyensis	101852	cox1	YP_009306749.1
+Phialocephala subalpina	576137	cox1	YP_004733034.1
+Pseudogymnoascus destructans	655981	cox1	YP_009348219.1
+Cairneyella variabilis	1802957	cox1	YP_009240972.1
+Pseudogymnoascus pannorum	79858	cox1	YP_009154285.1
+Monilinia laxa	61186	cox1	YP_009945042
+Antarctomyces pellizariae	1955577	cox1	YP_009827973
+Pseudocercospora fijiensis	1873960	cox1	YP_009681550.1
+Zymoseptoria tritici	1047171	cox1	AYO45637.1
+Zasmidium cellare	395010	cox1	YP_009257397.1
+Bipolaris cookei	74410	cox1	YP_009445521.1
+Stemphylium lycopersici	183478	cox1	YP_009433995.1
+Coniothyrium glycines	1077358	cox1	YP_009543491.1
+Endoconidiophora resinifera	1580851	cox1	AZB86618.1
+Verticillium dahliae	27337	cox1	YP_667836.1
+Neurospora crassa OR74A	367110	cox1	YP_009126717.1
+Fusarium verticillioides	117187	cox1	YP_005088222.1
+Podospora anserina	2587412	cox1	NP_074924.1
+Aspergillus flavus	5059	cox1	YP_009133193.1
+Penicillium digitatum	36651	cox1	YP_004221861.1
+Trichophyton rubrum	5551	cox1	YP_002970779.1
+Talaromyces marneffei	37727	cox1	NP_943723.1
+Morchella importuna	1174673	cox1	YP_009722382.1
+Erysiphe necator	52586	cox2	QQY98151.1
+Sclerotinia borealis	77105	cox2	YP_009072381.1
+Scytalidium sp.	1715249	cox2	QDG01246.1
+Botrytis cinerea B05.10	332648	cox2	AGN49030.1
+Rhynchosporium commune	914237	cox2	YP_008965371.1
+Rhynchosporium agropyri	914238	cox2	YP_008965324.1
+Rhynchosporium secalis	38038	cox2	YP_008965445.1
+Rhynchosporium orthosporum	210010	cox2	YP_008965405.1
+Glarea lozoyensis	101852	cox2	YP_009306756.1
+Phialocephala subalpina	576137	cox2	YP_004733049.1
+Pseudogymnoascus destructans	655981	cox2	YP_009348233.1
+Cairneyella variabilis	1802957	cox2	YP_009240976.1
+Pseudogymnoascus pannorum	79858	cox2	YP_009154284.1
+Monilinia laxa	61186	cox2	YP_009945086
+Antarctomyces pellizariae	1955577	cox2	YP_009827971
+Pseudocercospora fijiensis	1873960	cox2	YP_009681548.1
+Zymoseptoria tritici	1047171	cox2	AYO45622.1
+Zasmidium cellare	395010	cox2	YP_009257384.1
+Bipolaris cookei	74410	cox2	YP_009445518.1
+Stemphylium lycopersici	183478	cox2	YP_009433992.1
+Coniothyrium glycines	1077358	cox2	YP_009543498.1
+Endoconidiophora resinifera	1580851	cox2	AZB86628.1
+Verticillium dahliae	27337	cox2	YP_667832.1
+Neurospora crassa OR74A	367110	cox2	YP_009126729.1
+Fusarium verticillioides	117187	cox2	YP_005088218.1
+Podospora anserina	2587412	cox2	NP_074950.1
+Aspergillus flavus	5059	cox2	YP_009133196.1
+Penicillium digitatum	36651	cox2	YP_004221864.1
+Trichophyton rubrum	5551	cox2	YP_002970781.1
+Talaromyces marneffei	37727	cox2	NP_943733.1
+Morchella importuna	1174673	cox2	YP_009722255.1
+Erysiphe necator	52586	cox3	QQY98152.1
+Sclerotinia borealis	77105	cox3	YP_009072402.1
+Scytalidium sp.	1715249	cox3	QDG01225.1
+Botrytis cinerea B05.10	332648	cox3	AGN48999.1
+Rhynchosporium commune	914237	cox3	YP_008965366.1
+Rhynchosporium agropyri	914238	cox3	YP_008965318.1
+Rhynchosporium secalis	38038	cox3	YP_008965439.1
+Rhynchosporium orthosporum	210010	cox3	YP_008965398.1
+Glarea lozoyensis	101852	cox3	YP_009306737.1
+Phialocephala subalpina	576137	cox3	YP_004733044.1
+Pseudogymnoascus destructans	655981	cox3	YP_009348228.1
+Cairneyella variabilis	1802957	cox3	YP_009240965.1
+Pseudogymnoascus pannorum	79858	cox3	YP_009154294.1
+Monilinia laxa	61186	cox3	YP_009945122
+Antarctomyces pellizariae	1955577	cox3	YP_009827980
+Pseudocercospora fijiensis	1873960	cox3	YP_009681546.1
+Zymoseptoria tritici	1047171	cox3	AYO45640.1
+Zasmidium cellare	395010	cox3	YP_009257393.1
+Bipolaris cookei	74410	cox3	YP_009445504.1
+Stemphylium lycopersici	183478	cox3	YP_009433970.1
+Coniothyrium glycines	1077358	cox3	YP_009543517.1
+Endoconidiophora resinifera	1580851	cox3	AZB86623.1
+Verticillium dahliae	27337	cox3	YP_667829.1
+Neurospora crassa OR74A	367110	cox3	YP_009126704.1
+Fusarium verticillioides	117187	cox3	YP_005088231.1
+Podospora anserina	2587412	cox3	NP_074915.1
+Aspergillus flavus	5059	cox3	YP_009133203.1
+Penicillium digitatum	36651	cox3	YP_004221874.1
+Trichophyton rubrum	5551	cox3	YP_002970774.1
+Talaromyces marneffei	37727	cox3	NP_943721.1
+Morchella importuna	1174673	cox3	YP_009722252.1
+Erysiphe necator	52586	cob	QQY98156.1
+Sclerotinia borealis	77105	cob	YP_009072347.1
+Scytalidium sp.	1715249	cob	QDG01260.1
+Botrytis cinerea B05.10	332648	cob	AGN49013.1
+Rhynchosporium commune	914237	cob	YP_008965385.1
+Rhynchosporium agropyri	914238	cob	YP_008965339.1
+Rhynchosporium secalis	38038	cob	YP_008965459.1
+Rhynchosporium orthosporum	210010	cob	YP_008965412.1
+Glarea lozoyensis	101852	cob	YP_009306742.1
+Phialocephala subalpina	576137	cob	YP_004733054.1
+Pseudogymnoascus destructans	655981	cob	YP_009348224.1
+Cairneyella variabilis	1802957	cob	YP_009240973.1
+Pseudogymnoascus pannorum	79858	cob	YP_009154290.1
+Monilinia laxa	61186	cob	YP_009945053
+Antarctomyces pellizariae	1955577	cob	YP_009827972
+Pseudocercospora fijiensis	1873960	cob	YP_009681541.1
+Zymoseptoria tritici	1047171	cob	AYO45620.1
+Zasmidium cellare	395010	cob	YP_009257391.1
+Bipolaris cookei	74410	cob	YP_009445542.1
+Stemphylium lycopersici	183478	cob	YP_009433983.1
+Coniothyrium glycines	1077358	cob	YP_009543510.1
+Endoconidiophora resinifera	1580851	cob	AZB86631.1
+Verticillium dahliae	27337	cob	YP_667835.1
+Neurospora crassa OR74A	367110	cob	YP_009126714.1
+Fusarium verticillioides	117187	cob	YP_005088221.1
+Podospora anserina	2587412	cob	NP_074920.2
+Aspergillus flavus	5059	cob	YP_009133191.1
+Penicillium digitatum	36651	cob	YP_004221868.1
+Trichophyton rubrum	5551	cob	YP_002970785.1
+Talaromyces marneffei	37727	cob	NP_943713.1
+Morchella importuna	1174673	cob	YP_009722332.1

@@ -1,7 +1,26 @@
 
+
+
+# Use this rule once to download data
+#rule download_seqs:
+#   conda: "env.yml"
+#   input: "main_table_melt.txt"
+#   output: "sequences/QQY98154.1.fasta"
+#   shell: """
+#      mkdir -p sequences
+#      cat {input} | awk -v FS="\t" '{{print $2"_"$3"_"$4"\\n"$4}}' | while read FILENAME; do read ACC; efetch -db protein -id $ACC -format fasta > sequences/$FILENAME.fasta; sleep 0.1s; done
+#   """
+
+
 rule all:
    input:
-      "concatenated_alignment.fasta.iqtree"
+      "concatenated_alignment.fasta"
+
+
+rule melt_table:
+   input: "main_table.txt"
+   output: "main_table_melt.txt"
+   shell: " Rscript aux_scripts/melt_main_table.R  {input} {output}"
 
 
 
@@ -57,11 +76,10 @@ rule concatenate_alignments:
    """
 
    
-rule build_tree:
-   conda: "env.yml"
-   input: "concatenated_alignment.fasta"
-   output: "concatenated_alignment.fasta.iqtree"
-   shell: """
-      iqtree -s {input} -T 12 -B 1000
-   """
-
+#rule build_tree:
+#   conda: "env.yml"
+#   input: "concatenated_alignment.fasta"
+#   output: "concatenated_alignment.fasta.iqtree"
+#   shell: """
+#      iqtree -s {input} -T 4 -B 1000
+#   """
