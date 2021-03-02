@@ -9,6 +9,7 @@ rule all:
        expand("{sample}_QCd_2.fastq.gz", sample=SAMPLES),
        expand("{sample}.bam.bai", sample=SAMPLES),
        expand("{sample}.mosdepth.summary.txt", sample=SAMPLES),
+       expand("{sample}_number_mapped_reads.txt", sample=SAMPLES),
        "GCA_000798715.1.fasta",  # reference genome of C-strain
        "GCA_000798715.1.gff",     # reference annotation of C-strain
        "GCA_000798715.1_CDS.bed",
@@ -130,7 +131,7 @@ rule map_reads:
    input: ref="GCA_000798715.1_withmtDNA.fasta", r1="{sample}_QCd_1.fastq.gz", r2="{sample}_QCd_2.fastq.gz", idx_part="GCA_000798715.1_withmtDNA.fasta.sa"
    output: bam="{sample}.bam"
    shell: """
-      bwa mem {input.ref} {input.r1} {input.r2} | samblaster | samtools sort -o {output.bam}
+      bwa mem -t 4 {input.ref} {input.r1} {input.r2} | samblaster | samtools sort -o {output.bam}
    """
 
 rule index_bam:
@@ -147,8 +148,22 @@ rule mosdepth:
    output: "{sample}.mosdepth.summary.txt"
    shell: """
       mosdepth --by {input.bed} {wildcards.sample} --flag 1796 --use-median {input.bam}
+      gunzip "{wildcards.sample}.regions.bed.gz"
    """
 
 
+rule count_reads:
+   input: bam="{sample}.bam", bai="{sample}.bam.bai"
+   output: "{sample}_number_mapped_reads.txt"
+   shell: """
+      NUNMAPPED=$(samtools view -@ 4 -c -f 4 {input.bam})
+      NMAPPED=$(samtools view  -@ 4  -c -F 2308 {input.bam})
+      NMTMAPPED=$(samtools view  -@ 4 -c -F 2308 {input.bam} MT880588.1)
+      NNCMAPPED=$[ NMAPPED - NMTMAPPED ]
 
+      echo {wildcards.sample}$'\t'"unmapped"$'\t'$NUNMAPPED  > {output}
+      echo {wildcards.sample}$'\t'"unmapped"$'\t'$NMAPPED   >> {output}
+      echo {wildcards.sample}$'\t'"ncmapped"$'\t'$NNCMAPPED >> {output}
+      echo {wildcards.sample}$'\t'"mtmapped"$'\t'$NMTMAPPED >> {output}
 
+   """

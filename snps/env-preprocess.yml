@@ -10,3 +10,4 @@ dependencies:
    - samblaster=0.1.26
    - samtools=1.9
    - bamaddrg
+   - mosdepth=0.3.1
