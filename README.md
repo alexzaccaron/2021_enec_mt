@@ -7,6 +7,9 @@ Some of the analysis were performed with [snakemake](https://snakemake.readthedo
 
 Below is a summarized description of the directories and scripts.
 
+### `circos`
+In this folder there are the files used to construct the circos plot shown in the manuscript. Once circos in installed, simply running `circos` inside this directory will produce the plot. Further manual edits were performed for get the final version.
+
 ### `mt_genome_coverage`
 
 In this folder, there is a `Snakefile` that will map with `bwa mem` whole-genome sequencing reads of five *E. necator* isolates to the reference nuclear and mitochondrial genomes. It basically does:

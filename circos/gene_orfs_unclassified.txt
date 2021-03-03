@@ -1,0 +1,2 @@
+hs1	65429	68638	ID=ORF2_nad5-i4-cds;Parent=ORF2_nad5-i4;Note=GIY-YIG/reverse_transcriptase_hybrid
+hs1	83141	83374	ID=ORF2_atp6-i2-cds;Parent=ORF2_atp6-i2;Note=NUMOD1
