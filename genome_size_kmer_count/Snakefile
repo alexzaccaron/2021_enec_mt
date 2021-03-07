@@ -1,0 +1,71 @@
+SAMPLES=["lodi", "branching", "e1-101", "ranch9", "cstrain"]
+
+rule all:
+    input: 
+       expand("{sample}_R1.fastq.gz", sample=SAMPLES),
+       expand("{sample}_R2.fastq.gz", sample=SAMPLES),
+       expand("{sample}_peaks_w_mt.txt", sample=SAMPLES),
+       expand("{sample}_peaks_wo_mt.txt", sample=SAMPLES)
+
+
+# download fastq files for samples. URLs were obtained with https://sra-explorer.info/
+rule download:
+   output: 
+      lodir1="lodi_R1.fastq.gz", 
+      lodir2="lodi_R2.fastq.gz",
+      ranch9r1="ranch9_R1.fastq.gz", 
+      ranch9r2="ranch9_R2.fastq.gz",
+      e1_101r1="e1-101_R1.fastq.gz",
+      e1_101r2="e1-101_R2.fastq.gz",
+      branchingr1="branching_R1.fastq.gz", 
+      branchingr2="branching_R2.fastq.gz",
+      cstrainr1="cstrain_R1.fastq.gz",
+      cstrainr2="cstrain_R2.fastq.gz",
+   shell: """
+      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/000/SRR1448470/SRR1448470_1.fastq.gz -o {output.lodir1}
+      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/000/SRR1448470/SRR1448470_2.fastq.gz -o {output.lodir2}
+
+      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/008/SRR1448468/SRR1448468_1.fastq.gz -o {output.e1_101r1}
+      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/008/SRR1448468/SRR1448468_2.fastq.gz -o {output.e1_101r2}
+
+      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/004/SRR1448454/SRR1448454_1.fastq.gz -o {output.ranch9r1}
+      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/004/SRR1448454/SRR1448454_2.fastq.gz -o {output.ranch9r2}
+
+      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/003/SRR1448453/SRR1448453_1.fastq.gz -o {output.branchingr1}
+      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/003/SRR1448453/SRR1448453_2.fastq.gz -o {output.branchingr2}
+
+      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/000/SRR1448450/SRR1448450_1.fastq.gz -o {output.cstrainr1}
+      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/000/SRR1448450/SRR1448450_2.fastq.gz -o {output.cstrainr2}
+    """
+
+
+# Remove reads with k-mer matching the mtDNA
+rule filter_mtDNA:
+  conda: "env.yml"
+  input: r1="{sample}_R1.fastq.gz", r2="{sample}_R2.fastq.gz", mt="MT880588.fasta"
+  output: r1="{sample}_mtless_R1.fastq.gz", r2="{sample}_mtless_R2.fastq.gz"
+  shell: """
+     bbduk.sh in1={input.r1} in2={input.r2} out1={output.r1} out2={output.r2} ref={input.mt} k=29 threads=4
+  """
+
+
+# estimate genome size using all reads
+rule estimate1:
+  conda: "env.yml"
+  input: r1="{sample}_R1.fastq.gz", r2="{sample}_R2.fastq.gz"
+  output: "{sample}_peaks_w_mt.txt"
+  shell: """
+     kmercountexact.sh in1={input.r1} in2={input.r2} k=29 peaks={output} threads=4
+  """
+
+
+# estimate genome size using mtDNA-filtered reads
+rule estimate2:
+  conda: "env.yml"
+  input: r1="{sample}_mtless_R1.fastq.gz", r2="{sample}_mtless_R2.fastq.gz"
+  output: "{sample}_peaks_wo_mt.txt"
+  shell: """
+     kmercountexact.sh in1={input.r1} in2={input.r2} k=29 peaks={output} threads=4
+  """
+
+

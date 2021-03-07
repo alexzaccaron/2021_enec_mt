@@ -10,6 +10,14 @@ Below is a summarized description of the directories and scripts.
 ### `circos`
 In this folder there are the files used to construct the circos plot shown in the manuscript. Once circos in installed, simply running `circos` inside this directory will produce the plot. Further manual edits were performed for get the final version.
 
+### `genome_size_kmer_count`
+In this folder there's a `Snakefile` that downloads WGS reads for five *E. necator* isolates and then estimates the nuclear genome size based on *k*-mer counting with BBMap. The genome size is estimated twice: first with all reads, then after filtering out reads that match the mt genome. They produce different estimates:
++ with all reads: 104 Mb to 149 Mb
++ with mtDNA filtered reads: 76 Mb to 78 Mb
+
+The reference genome of *E. necator* published in [Jones et al. 2014](https://link.springer.com/article/10.1186/1471-2164-15-1081) reports a genome size of 126 Mb, which is likely inflated due to the overrepresentation of the mt genome among the reads.
+
+
 ### `mt_genome_coverage`
 
 In this folder, there is a `Snakefile` that will map with `bwa mem` whole-genome sequencing reads of five *E. necator* isolates to the reference nuclear and mitochondrial genomes. It basically does:
