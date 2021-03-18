@@ -1,0 +1,4 @@
+
+rule run_circos:
+   conda: "env.yml"
+   shell: " circos "

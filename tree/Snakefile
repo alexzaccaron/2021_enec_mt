@@ -1,85 +1,111 @@
 
+import pandas as pd
 
 
-# Use this rule once to download data
-#rule download_seqs:
-#   conda: "env.yml"
-#   input: "main_table_melt.txt"
-#   output: "sequences/QQY98154.1.fasta"
-#   shell: """
-#      mkdir -p sequences
-#      cat {input} | awk -v FS="\t" '{{print $2"_"$3"_"$4"\\n"$4}}' | while read FILENAME; do read ACC; efetch -db protein -id $ACC -format fasta > sequences/$FILENAME.fasta; sleep 0.1s; done
-#   """
+samples_df = pd.read_table('main_table_melt.txt').set_index("filename", drop=False)
+SAMPLES = list(samples_df['filename'])
+GENES   = list(samples_df['gene'])
 
 
-rule all:
-   input:
-      "concatenated_alignment.fasta"
+rule download_all:
+    input:
+        expand("sequences/{sample}.fasta", sample=SAMPLES),
+        expand("sequences_grouped/{gene}.fasta", gene=GENES),
+        expand("sequences_aligned/{gene}_aligned.fasta", gene=GENES),
+        expand("sequences_aligned_trimmed/{gene}_trimmed.fasta", gene=GENES),
+        "concatenated_alignment/concatenated_alignment.fasta",
+        "concatenated_alignment/concatenated_alignment_params.nex.con.tre"
+        
 
+# rule to download sequences
+rule download_sequences:
+    conda: "env.yml"
+    input: "main_table_melt.txt"
+    output: "sequences/{sample}.fasta" 
+    params:
+        # dynamically grab the accession ID and taxID from the "accession" and "taxID" columns in the data frame
+        accession = lambda wildcards: samples_df.loc[wildcards.sample, "accession"],
+        taxID = lambda wildcards: samples_df.loc[wildcards.sample, "taxID"]
+    shell: """
+        # fetch from NCBI
+        efetch -db protein -id {params.accession} -format fasta > {output}
+        # trick here, replacing accession by taxID as sequence name. Useful downstream.
+        sed 's/^>{params.accession}/>{params.taxID}/g' {output} > auxfile
+        mv auxfile {output}
+        """
 
-rule melt_table:
-   input: "main_table.txt"
-   output: "main_table_melt.txt"
-   shell: " Rscript aux_scripts/melt_main_table.R  {input} {output}"
-
-
-
-# file name format: <TaxID>_<geneName>_<ACCESSION>.fasta
+# rule to group sequences by gene
 rule combine_sequences:
    conda: "env.yml"
-   output: "cob_combined.fasta"
+   input: expand("sequences/{sample}.fasta", sample=SAMPLES)
+   output: "sequences_grouped/{gene}.fasta"
    shell: """
-      ls sequences/ | awk -v FS="_" '{{print $2}}' | sort -u | while read GENE; do
-         cat sequences/*"_"$GENE"_"* > $GENE"_combined.fasta"
-      done
+      cat sequences/*"_"{wildcards.gene}"_"* > {output}
    """
 
+
+# rule to align sequences. Will generate one alignment per gene
 rule align_sequences:
    conda: "env.yml"
-   input: "cob_combined.fasta"
-   output: "cob_combined_aligned.fasta"
+   input: "sequences_grouped/{gene}.fasta"
+   output: "sequences_aligned/{gene}_aligned.fasta"
    shell: """
-      ls sequences/ | awk -v FS="_" '{{print $2}}' | sort -u | while read GENE; do
-         mafft --localpair --maxiterate 1000 $GENE"_combined.fasta" > $GENE"_combined_aligned.fasta"
-      done
+      mafft --localpair --maxiterate 1000 {input} > {output}
    """
 
+# now trim the alignments
 rule trim_alignments:
    conda: "env.yml"
-   input: "cob_combined_aligned.fasta"
-   output: "cob_combined_aligned_trimmed.fasta"
+   input: "sequences_aligned/{gene}_aligned.fasta"
+   output: "sequences_aligned_trimmed/{gene}_trimmed.fasta"
    shell: """
-      ls sequences/ | awk -v FS="_" '{{print $2}}' | sort -u | while read GENE; do
-         trimal -nogaps -in $GENE"_combined_aligned.fasta" > $GENE"_combined_aligned_trimmed.fasta"
-      done
+      trimal -nogaps -in {input} > {output}
    """
 
-
+# condatenate the alignments into a superalignment
 rule concatenate_alignments:
    conda: "env.yml"
-   input: "cob_combined_aligned_trimmed.fasta"
-   output: "concatenated_alignment.fasta"
+   input: expand("sequences_aligned_trimmed/{gene}_trimmed.fasta", gene=GENES)
+   output: "concatenated_alignment/concatenated_alignment.fasta", directory("concatenated_alignment")
    shell: """
-      paste <(seqkit fx2tab atp6_combined_aligned_trimmed.fasta) \
-            <(seqkit fx2tab nad1_combined_aligned_trimmed.fasta) \
-            <(seqkit fx2tab nad2_combined_aligned_trimmed.fasta) \
-            <(seqkit fx2tab nad3_combined_aligned_trimmed.fasta) \
-            <(seqkit fx2tab nad4_combined_aligned_trimmed.fasta) \
-            <(seqkit fx2tab nad4L_combined_aligned_trimmed.fasta) \
-            <(seqkit fx2tab nad5_combined_aligned_trimmed.fasta) \
-            <(seqkit fx2tab nad6_combined_aligned_trimmed.fasta) \
-            <(seqkit fx2tab cox1_combined_aligned_trimmed.fasta) \
-            <(seqkit fx2tab cox2_combined_aligned_trimmed.fasta) \
-            <(seqkit fx2tab cox3_combined_aligned_trimmed.fasta) \
-            <(seqkit fx2tab cob_combined_aligned_trimmed.fasta) \
-            | sed 's/\t\t/\t/g' | awk '{{print ">"$1}}{{for (i=2;i<=NF;i+=2) printf $i OFS}} {{print ""}}' | tr -d ' ' > {output}
+      pxcat -s sequences_aligned_trimmed/*.fasta -p concatenated_alignment/pxcat_parts.txt -o {output}
    """
 
-   
-#rule build_tree:
-#   conda: "env.yml"
-#   input: "concatenated_alignment.fasta"
-#   output: "concatenated_alignment.fasta.iqtree"
-#   shell: """
-#      iqtree -s {input} -T 4 -B 1000
-#   """
+# rule to convert alignment in fasta to nexus
+rule convert_fasta_nexus:
+   conda: "env.yml"
+   input: "concatenated_alignment/concatenated_alignment.fasta"
+   output: "concatenated_alignment/concatenated_alignment.nex"
+   shell: """
+      pxs2nex -s{input} -o {output}
+   """
+
+
+# rule to add mrbayes paramters at the end of the nexus file
+rule add_mrbayes_params:
+   conda: "env.yml"
+   input: "concatenated_alignment/concatenated_alignment.nex"
+   output: "concatenated_alignment/concatenated_alignment_params.nex"
+   shell: """
+      cat {input} > {output}
+      echo "
+begin mrbayes;
+    Prset Aamodelpr = mixed;
+    outgroup 1174673;
+    mcmc nchains = 4 ngen = 500000 samplefreq=200 printfreq=200;
+    sumt relburnin = yes burninfrac = 0.25;
+    sump relburnin = yes burninfrac = 0.25;
+    sump;
+    sumt;
+end;
+" >> {output}
+   """
+ 
+
+rule call_mrbayes:
+   conda: "env.yml"
+   input: "concatenated_alignment/concatenated_alignment_params.nex"
+   output: "concatenated_alignment/concatenated_alignment_params.nex.con.tre"
+   shell: """
+      mb {input}
+   """

@@ -3,12 +3,22 @@
 Scripts utilized for the analysis of the mitochondrial genome of the grape powdery mildew pathogen *Erysiphe necator* (GenBank [MT880588.1](https://www.ncbi.nlm.nih.gov/nuccore/MT880588.1/)). The genome and comparative analysis were published in `[fill the gap]`.
 
 
-Some of the analysis were performed with [snakemake](https://snakemake.readthedocs.io/en/stable/) to facilitate reproducibility and documentation. The `Snakefiles` utilized are in this repository. However, not all of them are fully automated.
+Some of the analysis were performed with [snakemake](https://snakemake.readthedocs.io/en/stable/) to facilitate reproducibility and documentation. The `Snakefiles` utilized are in this repository.
+
+In order to run the `Snakefiles`, you will need to have [bioconda](https://bioconda.github.io/user/install.html) installed. When it is set up, install `snakemake`, like:
+```bash=
+conda install -c bioconda snakemake-minimal
+```
+
+That's it. You should be able to run the `Snakefile` in the current directory by:
+```bash=
+snakemake -j 1 
+```
 
 Below is a summarized description of the directories and scripts.
 
 ### `circos`
-In this folder there are the files used to construct the circos plot shown in the manuscript. Once circos in installed, simply running `circos` inside this directory will produce the plot. Further manual edits were performed for get the final version.
+In this folder there are the files used to construct the circos plot shown in the manuscript. There are several files that contain the coordinates of genes, introns, and ORFs. Just run the `Snakefile` and the figure should be created.
 
 ### `genome_size_kmer_count`
 In this folder there's a `Snakefile` that downloads WGS reads for five *E. necator* isolates and then estimates the nuclear genome size based on *k*-mer counting with BBMap. The genome size is estimated twice: first with all reads, then after filtering out reads that match the mt genome. They produce different estimates:
@@ -49,15 +59,12 @@ The R script `draw_coverage_variants.R` creates a plot of the coverage, the hist
 
 
 ### `tree`
-This folder contains files utilized to construct the mitochondrial genome phylogenetic tree. `main_table.csv` presents the GenBank accession numbers of the genes and taxonomic information of the species. The auxiliary R script `melt_main_table.R` produces a melted (long format) of `main_table.csv`. The script relies on the `reshape` package. It can be called as:
+This folder contains files utilized to construct the mitochondrial genome phylogenetic tree. `main_table.csv` contains the GenBank accession numbers of the genes and taxonomic information of the species. The auxiliary R script `scripts/melt_main_table.R` produces a melted (long format) of `main_table.csv`. The script relies on the `reshape` package. It can be called as:
 ```r=
-Rscript aux_scripts/melt_man_table.R main_table.csv main_table_melted.txt
+Rscript aux_scripts/melt_man_table.R main_table.csv main_table_melt.txt
 ```
+The snakefile will read accessions from the melted table (it should exist first) and start downloading protein sequences from NCBI. Sequences are then grouped by gene and aligned. After removal of gaps from the alignments, a concatenated fasta alignment is generated. This alignment is then converted to nexus format in order to run MrBayes. Because MrBayes keeps running, you can cancel it with `ctrl-c` when you see low values of average standard deviation of split frequencies (< 0.01), which is typically considered convergence.
 
-The `main_table_melted.txt` file can be used to download the sequences with the `download_seqs` rule in the `Snakefile`. But the sequences are already in the `sequences` directory. Name of the files follows the format `<TaxID>_<GeneName>_<Accession>.fasta`. The `Snakefile` will produce a concatenated fasta alignment of the genes *atp6*, *nad1*-*6*, *nad4L*, *cox1*-*3* and *cob*. Since MrBayes only accepts alignments in nexus format (?), I converted the fasta alignment to nexus using [Alter](http://sing-group.org/ALTER/). The alignment in nexus format is already in the `mrbayes` directory. At the end of the nexus file, there is a block of code setting the parameters for MrBayes. So, you can just run:
-```bash=
-mb concatenated_alignment.nex
-```
-And MrBayes will construct the tree.
+Output of MrBayes will be in `concatenated_alignment/`.
 
 ###### tags: `readme` `mt`
