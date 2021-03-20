@@ -1,0 +1,5 @@
+channells:
+   - bioconda
+   - conda-forge
+dependencies:
+   - r-ggplot2=3.3.3
