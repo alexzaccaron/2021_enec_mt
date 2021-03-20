@@ -19,18 +19,46 @@ rule all:
        "GCA_000798715.1.fasta",  # reference genome of C-strain
        "GCA_000798715.1.gff"     # reference annotation of C-strain
 
-#rule download:
-#   output: 
-#      lodir1="lodi_R1.fastq.gz", 
-#      lodir2="lodi_R2.fastq.gz",
-#      ranch9r1="ranch9_R1.fastq.gz", 
-#      ranch9r2="ranch9_R2.fastq.gz"
-#   shell: """
-#      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/000/SRR1448470/SRR1448470_1.fastq.gz -o {output.lodir1}
-#      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/000/SRR1448470/SRR1448470_2.fastq.gz -o {output.lodir2}
-#      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/000/SRR1448454/SRR1448454_1.fastq.gz -o {output.ranch9r1}
-#      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/000/SRR1448454/SRR1448454_2.fastq.gz -o {output.ranch9r2}
-#    """
+
+rule download_reads:
+   output: 
+      lodir1="lodi_1.fastq.gz", 
+      lodir2="lodi_2.fastq.gz",
+      ranch9r1="ranch9_1.fastq.gz", 
+      ranch9r2="ranch9_2.fastq.gz",
+      e1_101r1="e1-101_1.fastq.gz",
+      e1_101r2="e1-101_2.fastq.gz",
+      branchingr1="branching_1.fastq.gz", 
+      branchingr2="branching_2.fastq.gz",
+      cstrainr1="cstrain_1.fastq.gz",
+      cstrainr2="cstrain_2.fastq.gz",
+   shell: """
+      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/000/SRR1448470/SRR1448470_1.fastq.gz -o {output.lodir1}
+      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/000/SRR1448470/SRR1448470_2.fastq.gz -o {output.lodir2}
+
+      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/008/SRR1448468/SRR1448468_1.fastq.gz -o {output.e1_101r1}
+      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/008/SRR1448468/SRR1448468_2.fastq.gz -o {output.e1_101r2}
+
+      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/004/SRR1448454/SRR1448454_1.fastq.gz -o {output.ranch9r1}
+      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/004/SRR1448454/SRR1448454_2.fastq.gz -o {output.ranch9r2}
+
+      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/003/SRR1448453/SRR1448453_1.fastq.gz -o {output.branchingr1}
+      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/003/SRR1448453/SRR1448453_2.fastq.gz -o {output.branchingr2}
+
+      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/000/SRR1448450/SRR1448450_1.fastq.gz -o {output.cstrainr1}
+      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/000/SRR1448450/SRR1448450_2.fastq.gz -o {output.cstrainr2}
+    """
+
+
+
+# download mt genome in fasta and genbank format
+rule download_mt_genome:
+   conda: "env-preprocess.yml"
+   output: fasta="MT880588.1.fasta", gbk="MT880588.1.gbk"
+   shell: """
+      efetch -db nuccore -id  MT880588.1 -format fasta > {output.fasta}
+      efetch -db nuccore -id  MT880588.1 -format gb    > {output.gbk}
+   """
 
 
 rule download_genome:

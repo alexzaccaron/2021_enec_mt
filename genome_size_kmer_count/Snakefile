@@ -7,6 +7,12 @@ rule all:
        expand("{sample}_peaks_w_mt.txt", sample=SAMPLES),
        expand("{sample}_peaks_wo_mt.txt", sample=SAMPLES)
 
+# download genome
+rule download_genome:
+   conda: "env.yml"
+   output: "MT880588.fasta"
+   shell: " efetch -db nuccore -id  MT880588.1 -format fasta > {output}"
+
 
 # download fastq files for samples. URLs were obtained with https://sra-explorer.info/
 rule download:

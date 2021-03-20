@@ -5,7 +5,7 @@ channels:
 dependencies:
    - fastp=0.20.1
    - bbmap=38.18
-   - megahit=1.2.9
+   - entrez-direct=13.9
    - bwa=0.7.17
    - samblaster=0.1.26
    - samtools=1.9

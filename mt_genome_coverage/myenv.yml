@@ -3,6 +3,7 @@ channells:
    - bioconda
    - conda-forge
 dependencies:
+   - entrez-direct=13.9
    - fastqc=0.11.9
    - fastp=0.20.1
    - bbmap=38.90

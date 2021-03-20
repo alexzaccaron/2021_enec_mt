@@ -76,6 +76,12 @@ rule fastp_trim:
    """
 
 
+rule download_mt_genome:
+   conda: "myenv.yml"
+   output: "MT880588.1.fasta"
+   shell: " efetch -db nuccore -id  MT880588.1 -format fasta > {output}"
+
+
 rule hisat_build:
    conda: "myenv.yml"
    input: ref="MT880588.1.fasta"
