@@ -1,4 +1,9 @@
+# Snakefile that install the circos package and calls it to make the circular plot
+# using feature coordinates given in the feature_coordinates folder. Configuration files
+# are located in the circos_files folder.
 
 rule run_circos:
    conda: "env.yml"
-   shell: " circos "
+   shell: """
+      circos
+   """
