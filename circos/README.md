@@ -14,6 +14,7 @@ Parameters:
 
 Note the configuration file `circos.conf` that has parameters specific to circos and points to other files in the folders `feature_coordinates`, which contains genes and introns coordinates, and `circos_files`, which constains other configuration files to run circos.
 
+The `Snakefile` has a single rule, which executes the `circos` command. Settings are specified in the file `circos.conf`, which points to the files with the locations of the genes (folder `feature_coordinates`) and additional configuration files (folder `circos_files`)
 
 The resulting figure is this:
 

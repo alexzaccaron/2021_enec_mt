@@ -51,143 +51,276 @@ rule download_reads:
       curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/000/SRR1448450/SRR1448450_2.fastq.gz -o {output.cstrainr2}
     """
 
-
+##fastqc: performs quality control of the reads
 rule fastqc:
    conda: "myenv.yml"
-   input: r1="{sample}_R1.fastq.gz", r2="{sample}_R2.fastq.gz"
-   output: r1="{sample}_R1_fastqc.html", r2="{sample}_R2_fastqc.html"
+   input:
+      r1="{sample}_R1.fastq.gz",
+      r2="{sample}_R2.fastq.gz"
+   output:
+      r1="{sample}_R1_fastqc.html",
+      r2="{sample}_R2_fastqc.html"
    shell: """
       fastqc  {input.r1} {input.r2} 
    """
 
+
+
+##fastp_trim: trim adaptor/barcode sequences and low quality sequences from the reads
 rule fastp_trim:
    conda: "myenv.yml"
-   input: r1="{sample}_R1.fastq.gz", r2="{sample}_R2.fastq.gz"
-   output: r1="{sample}_QCd_1.fastq.gz", r2="{sample}_QCd_2.fastq.gz", html="{sample}_fastp.html", json="{sample}_fastp.json"
+   input:
+      r1="{sample}_R1.fastq.gz",      # left end of the paired-end reads
+      r2="{sample}_R2.fastq.gz"       # right end of the paired-end reads
+   output:
+      r1="{sample}_QCd_1.fastq.gz",   # left end of the paired-end reads after trimming
+      r2="{sample}_QCd_2.fastq.gz",   # right end of the paired-end reads after trimming
+      html="{sample}_fastp.html",     # HTML log of the trimming
+      json="{sample}_fastp.json"      # JSON log of the trimming
+   params:
+      cpus=6,                         # number of core to use
+      minlen=40                       # minimum size of the reads after trimming, shorter will be discarted
    shell: """
-      fastp --in1 {input.r1} --in2 {input.r2} --out1 {output.r1} --out2 {output.r2} --html {output.html} --json {output.json} --thread 6 --length_required 40
+      fastp \
+         --in1 {input.r1}       \
+         --in2 {input.r2}       \
+         --out1 {output.r1}     \
+         --out2 {output.r2}     \
+         --html {output.html}   \
+         --json {output.json}   \
+         --thread {params.cpus} \
+         --length_required {params.minlen}
    """
 
-# download genomes
+
+
+##download_mt_genome: download the E. necator mt genome using efetch
 rule download_mt_genome:
    conda: "myenv.yml"
-   output: "MT880588.1.fasta"
-   shell: " efetch -db nuccore -id  MT880588.1 -format fasta > {output}"
+   output:
+      "MT880588.1.fasta"  # output fasta file with the genome
+   params:
+      acc=MT880588.1      # accession number of the genome
+   shell: """
+      efetch -db nuccore -id {params.acc} -format fasta > {output}
+   """
 
 
+
+##download_nuclear_genome: download the nuclear genome fasta and gene annotation
 rule download_nuclear_genome:
-   output: fasta="GCA_000798715.1.fasta.gz", ann="GCA_000798715.1.gff.gz"
+   output:
+      fasta="GCA_000798715.1.fasta.gz",    # fasta file with the genome
+      ann="GCA_000798715.1.gff.gz"         # GFF file with gene annotation
    shell: """
        curl -L ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/798/715/GCA_000798715.1_ASM79871v1/GCA_000798715.1_ASM79871v1_genomic.fna.gz -o {output.fasta}
+
        curl -L ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/798/715/GCA_000798715.1_ASM79871v1/GCA_000798715.1_ASM79871v1_genomic.gff.gz -o {output.ann}
 """
 
+
+##gzip_genome: decompress the fasta and GFF files
 rule gzip_genome:
-   input: fasta="GCA_000798715.1.fasta.gz", ann="GCA_000798715.1.gff.gz"
-   output: fasta="GCA_000798715.1.fasta", ann="GCA_000798715.1.gff"
+   input:
+      fasta="GCA_000798715.1.fasta.gz",    # fasta file with the genome
+      ann="GCA_000798715.1.gff.gz"         # GFF file with gene annotation
+   output:
+      fasta="GCA_000798715.1.fasta",    # decompressedfasta file with the genome
+      ann="GCA_000798715.1.gff"         # decompressed GFF file with gene annotation
    shell: """
        gunzip -c {input.fasta} > {output.fasta}
        gunzip -c {input.ann} > {output.ann}
-"""
+   """
 
+
+##get_CDS_bed: extract a BED file with gene coordinates
 rule get_CDS_bed:
-   input: ann="GCA_000798715.1.gff"
-   output: bed="GCA_000798715.1_CDS.bed"
+   input:
+      ann="GCA_000798715.1.gff"         # decompressed GFF file with gene annotation
+   output:
+      bed="GCA_000798715.1_CDS.bed"     # BED file with gene coordinates
    shell: """
-       awk -v OFS="\t" '{{if($3=="CDS") print $1,$4-1,$5}}' {input.ann} | sort -k1,1 -k2,2n > {output.bed}
+       awk -v OFS="\t" '{{if($3=="CDS") print $1,$4-1,$5}}' {input.ann} | \
+       sort -k1,1 -k2,2n > {output.bed}
+
+       # adding a feature for the entire mt genome
        echo "MT880588.1"$'\t'0$'\t'188577 >> {output.bed}
 """
 
 
 
+##blast: performs a BLASTn search for find contigs matching the mt genome in the fasta file
 rule blast:
    conda: "myenv.yml"
-   input: ref="GCA_000798715.1.fasta", mt="MT880588.1.fasta"
-   output: "blastn_out.txt"
+   input:
+      ref="GCA_000798715.1.fasta",    # decompressedfasta file with the nuclear genome
+      mt="MT880588.1.fasta"           # mt genome fasta file
+   output:
+      "blastn_out.txt"                # BLASTn output table
+   params:
+      outfmt=6                        # BLAST output format
+      evalue=1e-200                   # maximum e-value to report
    shell: """
-      makeblastdb -in GCA_000798715.1.fasta -dbtype nucl
-      blastn -query MT880588.1.fasta -db GCA_000798715.1.fasta -outfmt 6 -evalue 1e-200 > {output}
+      # build the database
+      makeblastdb -in {input.ref} -dbtype nucl
+      # call blastn
+      blastn -query {input.mt} -db {input.ref} -outfmt {params.outfmt} -evalue {params.evalue} > {output}
    """
 
+
+
+##remove_mt_tigs: remove contigs matching the mt genome in the fasta file from the nucler genome fasta 
 rule remove_mt_tigs:
    conda: "myenv.yml"
-   input: blast_out="blastn_out.txt", ref="GCA_000798715.1.fasta"
-   output: tig_ids="mt_tigs_to_remove.txt", ref_nomt="GCA_000798715.1_nomtDNA.fasta"
+   input:
+      blast_out="blastn_out.txt",           # BLASTn output table
+      ref="GCA_000798715.1.fasta"           # fasta file with the nuclear genome
+   output:
+      tig_ids="mt_tigs_to_remove.txt",            # IDs of the contigs matching the mt genome 
+      ref_nomt="GCA_000798715.1_nomtDNA.fasta"    # fasta file with the contigs removed
    shell: """
+      # get contigs IDs
       cut -f 2 {input.blast_out} | sort -u > {output.tig_ids}
-      filterbyname.sh in={input.ref} names={output.tig_ids} out={output.ref_nomt} include=f
+      # filter
+      filterbyname.sh           \
+         in={input.ref}         \
+         names={output.tig_ids} \
+         out={output.ref_nomt}  \
+         include=f
    """
 
+
+
+##add_mtgenome_reference: concatenate the mitochondrial genome and filtered nuclear genome fasta files
 rule add_mtgenome_reference:
-   input: ref="GCA_000798715.1.fasta", ref_nomt="GCA_000798715.1_nomtDNA.fasta"
-   output: "GCA_000798715.1_withmtDNA.fasta"
+   input:
+      ref_nomt="GCA_000798715.1_nomtDNA.fasta"    # fasta file with the contigs removed
+      mt="MT880588.1.fasta"                       # mt genome fasta file
+   output:
+      "GCA_000798715.1_withmtDNA.fasta"           # concatenated fasta file containing nuclear and mt genomes
    shell: """
-      cat GCA_000798715.1_nomtDNA.fasta MT880588.1.fasta > {output}
+      cat {input.ref_nomt} {input.mt} > {output}
    """
 
 
+
+##index_ref: create an index for BWA
 rule index_ref:
-   input: ref="GCA_000798715.1_withmtDNA.fasta"
-   output: "GCA_000798715.1_withmtDNA.fasta.sa"
+   input:
+      ref="GCA_000798715.1_withmtDNA.fasta"    # concatenated fasta file containing nuclear and mt genomes
+   output:
+      "GCA_000798715.1_withmtDNA.fasta.sa"     # one of the files generated for the BWA index
    shell: """
       bwa index {input.ref}
    """
 
 
+
+##map_reads: map the reads using BWA, mark PCR duplicates with SAMBLASTER, and sort the resulting BAM file
 rule map_reads:
    conda: "myenv.yml"
-   input: ref="GCA_000798715.1_withmtDNA.fasta", r1="{sample}_QCd_1.fastq.gz", r2="{sample}_QCd_2.fastq.gz", idx_part="GCA_000798715.1_withmtDNA.fasta.sa"
-   output: bam="{sample}.bam"
+   input:
+      ref="GCA_000798715.1_withmtDNA.fasta",           # concatenated fasta file containing nuclear and mt genomes
+      r1="{sample}_QCd_1.fastq.gz",                    # left end of the paired-end reads after trimming
+      r2="{sample}_QCd_2.fastq.gz",                    # right end of the paired-end reads after trimming
+      idx_part="GCA_000798715.1_withmtDNA.fasta.sa"    # one of the files generated for the BWA index
+   output:
+      bam="{sample}.bam"         # output BAM file
+   params:
+      cpus=4
    shell: """
-      bwa mem -t 4 {input.ref} {input.r1} {input.r2} | samblaster | samtools sort -o {output.bam}
+      bwa mem -t {params.cpus} {input.ref} {input.r1} {input.r2} | \
+         samblaster | \
+         samtools sort -o {output.bam}
    """
 
+
+
+##index_bam: index the generated BAM file
 rule index_bam:
    conda: "myenv.yml"
-   input: bam="{sample}.bam"
-   output: index="{sample}.bam.bai"
+   input:
+      bam="{sample}.bam"          # BAM file
+   output:
+      index="{sample}.bam.bai"    # BAM index name
    shell: """
       samtools index {input.bam}
    """
 
+
+
+##mosdepth: calculates median coverage of genes in BED format
 rule mosdepth:
    conda: "myenv.yml"
-   input: bam="{sample}.bam", index="{sample}.bam.bai", bed="GCA_000798715.1_CDS.bed", 
-   output: "{sample}.mosdepth.summary.txt"
+   input:
+      bam="{sample}.bam",              # BAM file
+      index="{sample}.bam.bai",        # BAM index name
+      bed="GCA_000798715.1_CDS.bed"    # BED file with gene coordinates  
+   output:
+      "{sample}.mosdepth.summary.txt"  # one of the output files from mosdepth
+   params:
+      flag=1796      # exclude reads with any of the bits in FLAG
    shell: """
-      mosdepth --by {input.bed} {wildcards.sample} --flag 1796 --use-median {input.bam}
+      mosdepth \
+         --by {input.bed}     \
+         {wildcards.sample}   \
+         --flag {params.flag} \
+         --use-median {input.bam}
+      
       gunzip "{wildcards.sample}.regions.bed.gz"
    """
 
 
-rule count_reads:
-   input: bam="{sample}.bam", bai="{sample}.bam.bai"
-   output: "{sample}_number_mapped_reads.txt"
-   shell: """
-      NUNMAPPED=$(samtools view -@ 4 -c -f 4 {input.bam})
-      NMAPPED=$(samtools view  -@ 4  -c -F 2308 {input.bam})
-      NMTMAPPED=$(samtools view  -@ 4 -c -F 2308 {input.bam} MT880588.1)
-      NNCMAPPED=$[ NMAPPED - NMTMAPPED ]
 
-      echo {wildcards.sample}$'\t'"unmapped"$'\t'$NUNMAPPED  > {output}
-      echo {wildcards.sample}$'\t'"totalmapped"$'\t'$NMAPPED   >> {output}
-      echo {wildcards.sample}$'\t'"ncmapped"$'\t'$NNCMAPPED >> {output}
-      echo {wildcards.sample}$'\t'"mtmapped"$'\t'$NMTMAPPED >> {output}
+##count_reads: count how many reads mapped to the mt and nuclear genomes
+rule count_reads:
+   input:
+      bam="{sample}.bam",       # BAM file
+      bai="{sample}.bam.bai"    # BAM index name
+   output:
+      "{sample}_number_mapped_reads.txt"    # file with number of reads mapped
+   shell: """
+      # total number of reads not mapped
+      NUNMAPPED=$(samtools view -@ 4 -c -f 4 {input.bam})
+      
+      # total number of reads mapped
+      NMAPPED=$(samtools view  -@ 4  -c -F 2308 {input.bam})
+      
+      # total number of reads mapped to the mt genome
+      NMTMAPPED=$(samtools view  -@ 4 -c -F 2308 {input.bam} MT880588.1)
+
+      # total number of reads mapped to the nuclear genome
+      NNCMAPPED=$[ NMAPPED - NMTMAPPED ]
+      
+      # print numbers to output file
+      echo {wildcards.sample}$'\t'"unmapped"$'\t'$NUNMAPPED  >  {output}
+      echo {wildcards.sample}$'\t'"totalmapped"$'\t'$NMAPPED >> {output}
+      echo {wildcards.sample}$'\t'"ncmapped"$'\t'$NNCMAPPED  >> {output}
+      echo {wildcards.sample}$'\t'"mtmapped"$'\t'$NMTMAPPED  >> {output}
    """
 
+
+
+##plot_percentage_mapped: call the R script percentage_mapped_reads.R to make a bar plot with percentage of reads mapped to the nuclear and mt genomes
 rule plot_percentage_mapped:
    conda: "env-ggplot.yml"
-   input: expand("{sample}_number_mapped_reads.txt", sample=SAMPLES)
-   output: "plots/percentage_mapped_reads.pdf"
+   input:
+      expand("{sample}_number_mapped_reads.txt", sample=SAMPLES)    # file with number of reads mapped 
+   output:
+      "plots/percentage_mapped_reads.pdf"          # output plot
    shell:"""
       Rscript scripts/percentage_mapped_reads.R
    """
 
 
+
+##plot_predicted_mtDNA_copy_number: call the R script predicted_mt_copynumber.R
 rule plot_predicted_mtDNA_copy_number:
    conda: "env-ggplot.yml"
-   input: expand("{sample}.regions.bed", sample=SAMPLES)
-   output: "plots/predicted_mt_copynumber.pdf"
+   input:
+      expand("{sample}.regions.bed", sample=SAMPLES)    # median coverage of genes
+   output:
+      "plots/predicted_mt_copynumber.pdf"               # output plot
    shell:"""
       Rscript scripts/predicted_mt_copynumber.R
    """
