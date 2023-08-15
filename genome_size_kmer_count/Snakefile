@@ -7,15 +7,22 @@ rule all:
        expand("{sample}_peaks_w_mt.txt", sample=SAMPLES),
        expand("{sample}_peaks_wo_mt.txt", sample=SAMPLES)
 
-# download genome
+##download_genome: download the reference mitochondrial genome using efetch
 rule download_genome:
-   conda: "env.yml"
-   output: "MT880588.fasta"
-   shell: " efetch -db nuccore -id  MT880588.1 -format fasta > {output}"
+   conda: "env.yml"    # conda environment to use
+   output:
+      "MT880588.fasta" # output fasta file
+   shell: """
+      efetch             \
+         -db nuccore     \
+         -id  MT880588.1 \
+         -format fasta > {output}
+   """
 
 
-# download fastq files for samples. URLs were obtained with https://sra-explorer.info/
-rule download:
+##download_reads: downloads fastq files for different strains. URLs were obtained with https://sra-explorer.info/.
+# for a better version for this rule, see http://ivory.idyll.org/blog/2020-snakemake-hacks-collections-files.html
+rule download_reads:
    output: 
       lodir1="lodi_R1.fastq.gz", 
       lodir2="lodi_R2.fastq.gz",
@@ -45,33 +52,70 @@ rule download:
     """
 
 
-# Remove reads with k-mer matching the mtDNA
+##filter_mtDNA: remove reads with k-mer matching the mitochondrial genome
 rule filter_mtDNA:
-  conda: "env.yml"
-  input: r1="{sample}_R1.fastq.gz", r2="{sample}_R2.fastq.gz", mt="MT880588.fasta"
-  output: r1="{sample}_mtless_R1.fastq.gz", r2="{sample}_mtless_R2.fastq.gz"
+  conda: "env.yml"    # conda environment to use
+  input:
+     r1="{sample}_R1.fastq.gz",    # left reads of the pairs
+     r2="{sample}_R2.fastq.gz",    # right reads of the pairs
+     mt="MT880588.fasta"           # mitochondrial genome downloaded with rule download_genome
+  output:
+     r1="{sample}_mtless_R1.fastq.gz",    # left reads of the pairs that do not have a k-mer matching MT880588.fasta
+     r2="{sample}_mtless_R2.fastq.gz"     # right reads of the pairs that do not have a k-mer matching MT880588.fasta
+  params:
+     kmer=29    # k-mer size to use
+     cpus=4     # how many cpus to use              
   shell: """
-     bbduk.sh in1={input.r1} in2={input.r2} out1={output.r1} out2={output.r2} ref={input.mt} k=29 threads=4
+     bbduk.sh            \
+        in1={input.r1}   \
+        in2={input.r2}   \
+        out1={output.r1} \
+        out2={output.r2} \
+        ref={input.mt}   \
+        k={params.kmer}  \
+        threads={params.cpus}
   """
 
 
-# estimate genome size using all reads
-rule estimate1:
-  conda: "env.yml"
-  input: r1="{sample}_R1.fastq.gz", r2="{sample}_R2.fastq.gz"
-  output: "{sample}_peaks_w_mt.txt"
+##estimate_all: estimate nuclear genome size using all reads
+rule estimate_all:
+  conda: "env.yml"    # conda environment to use
+  input: 
+     r1="{sample}_R1.fastq.gz",    # left reads of the pairs
+     r2="{sample}_R2.fastq.gz"     # right reads of the pairs
+  output:
+     "{sample}_peaks_w_mt.txt"     # output log with estimated genome size
+  params:
+     kmer=29    # k-mer size to use
+     cpus=4     # how many cpus to use 
   shell: """
-     kmercountexact.sh in1={input.r1} in2={input.r2} k=29 peaks={output} threads=4
+     kmercountexact.sh  \
+        in1={input.r1}  \
+        in2={input.r2}  \
+        k=29            \
+        k={params.kmer} \
+        threads={params.cpus}
   """
 
 
-# estimate genome size using mtDNA-filtered reads
-rule estimate2:
-  conda: "env.yml"
-  input: r1="{sample}_mtless_R1.fastq.gz", r2="{sample}_mtless_R2.fastq.gz"
-  output: "{sample}_peaks_wo_mt.txt"
+##estimate_filt: estimate genome size using filtered reads, after removing those with a k-mer matching the mitochondrial genome
+rule estimate_filt:
+  conda: "env.yml"    # conda environment to use
+  input:
+     r1="{sample}_mtless_R1.fastq.gz",    # left reads of the pairs that do not have a k-mer matching MT880588.fasta
+     r2="{sample}_mtless_R2.fastq.gz"     # right reads of the pairs that do not have a k-mer matching MT880588.fasta
+  output:
+     "{sample}_peaks_wo_mt.txt"     # output log with estimated genome size
+  params:
+     kmer=29    # k-mer size to use
+     cpus=4     # how many cpus to use 
   shell: """
-     kmercountexact.sh in1={input.r1} in2={input.r2} k=29 peaks={output} threads=4
+     kmercountexact.sh  \
+        in1={input.r1}  \
+        in2={input.r2}  \
+        peaks={output}  \
+        k={params.kmer} \
+        threads={params.cpus}
   """
 
 

@@ -2,6 +2,8 @@
 # using feature coordinates given in the feature_coordinates folder. Configuration files
 # are located in the circos_files folder.
 
+# there is onle one rule, which installs and calls circos
+# all necessary configuration is in the circos.conf file, or in the files in the folder circos_files
 rule run_circos:
    conda: "env.yml"
    shell: """
