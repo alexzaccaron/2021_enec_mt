@@ -1,0 +1,12 @@
+Building DAG of jobs...
+AmbiguousRuleException:
+Rules fastp_trim and download_reads are ambiguous for the file data/SRR1502871_QCd_R1.fastq.gz.
+Consider starting rule output with a unique prefix, constrain your wildcards, or use the ruleorder directive.
+Wildcards:
+	fastp_trim: sample=SRR1502871
+	download_reads: sample=SRR1502871_QCd
+Expected input files:
+	fastp_trim: data/SRR1502871_R1.fastq.gz data/SRR1502871_R2.fastq.gz
+	download_reads: Expected output files:
+	fastp_trim: data/SRR1502871_QCd_R1.fastq.gz data/SRR1502871_QCd_R2.fastq.gz SRR1502871_fastp.html SRR1502871_fastp.json
+	download_reads: data/SRR1502871_QCd_R1.fastq.gz data/SRR1502871_QCd_R2.fastq.gz

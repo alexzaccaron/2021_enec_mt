@@ -1,0 +1,5 @@
+Building DAG of jobs...
+MissingInputException in line 33 of /Users/alexzaccaron/2021_enec_mt/rnaseq_hisat/Snakefile:
+Missing input files for rule fastp_trim:
+data/SRR1502871_R1.fastq.gz
+data/SRR1502871_R2.fastq.gz

@@ -1,0 +1,2 @@
+SyntaxError in line 39 of /Users/alexzaccaron/2021_enec_mt/rnaseq_hisat/Snakefile:
+Unexpected keyword R1 in rule definition (Snakefile, line 39)

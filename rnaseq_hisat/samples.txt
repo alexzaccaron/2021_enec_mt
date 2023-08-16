@@ -1,0 +1,13 @@
+sample	URL_left	URL_right
+SRR1502871	ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/001/SRR1502871/SRR1502871_1.fastq.gz	ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/001/SRR1502871/SRR1502871_2.fastq.gz
+SRR1502872	ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/002/SRR1502872/SRR1502872_1.fastq.gz	ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/002/SRR1502872/SRR1502872_2.fastq.gz
+SRR1502873	ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/003/SRR1502873/SRR1502873_1.fastq.gz	ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/003/SRR1502873/SRR1502873_2.fastq.gz
+SRR1502874	ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/004/SRR1502874/SRR1502874_1.fastq.gz	ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/004/SRR1502874/SRR1502874_2.fastq.gz
+SRR1502875	ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/005/SRR1502875/SRR1502875_1.fastq.gz	ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/005/SRR1502875/SRR1502875_2.fastq.gz
+SRR1502876	ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/006/SRR1502876/SRR1502876_1.fastq.gz	ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/006/SRR1502876/SRR1502876_2.fastq.gz
+SRR1502877	ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/007/SRR1502877/SRR1502877_1.fastq.gz	ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/007/SRR1502877/SRR1502877_2.fastq.gz
+SRR1502878	ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/008/SRR1502878/SRR1502878_1.fastq.gz	ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/008/SRR1502878/SRR1502878_2.fastq.gz
+SRR1502879	ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/009/SRR1502879/SRR1502879_1.fastq.gz	ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/009/SRR1502879/SRR1502879_2.fastq.gz
+SRR1502880	ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/000/SRR1502880/SRR1502880_1.fastq.gz	ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/000/SRR1502880/SRR1502880_2.fastq.gz
+SRR1502881	ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/001/SRR1502881/SRR1502881_1.fastq.gz	ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/001/SRR1502881/SRR1502881_2.fastq.gz
+SRR1502882	ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/002/SRR1502882/SRR1502882_1.fastq.gz	ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/002/SRR1502882/SRR1502882_2.fastq.gz

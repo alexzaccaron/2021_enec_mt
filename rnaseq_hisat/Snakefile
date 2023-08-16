@@ -1,108 +1,106 @@
 
+# Snakemake pipeline that maps RNA-seq reads to the mitochondrial genome of E. necator
 
 
-SAMPLES=["SRR1502871","SRR1502872","SRR1502873","SRR1502874","SRR1502875","SRR1502876","SRR1502877","SRR1502878","SRR1502879","SRR1502880","SRR1502881","SRR1502882"]
+import pandas as pd
+
+# read a table with sample names and links to download the reads
+samples_df = pd.read_table('samples.txt').set_index("sample", drop=False)
+SAMPLES = list(samples_df['sample'])
+
 
 
 rule all:
    input:
-      expand("{sample}_1.fastq.gz", sample=SAMPLES),
-      expand("{sample}_2.fastq.gz", sample=SAMPLES),
       expand("{sample}.bam", sample=SAMPLES),
 
 
 
-rule download:
+##download_reads: download fastq files specified in samples_df
+rule download_reads:
    output:
-      SRR1502871r1="SRR1502871_1.fastq.gz",
-      SRR1502871r2="SRR1502871_2.fastq.gz",
-      SRR1502872r1="SRR1502872_1.fastq.gz",
-      SRR1502872r2="SRR1502872_2.fastq.gz",
-      SRR1502873r1="SRR1502873_1.fastq.gz",
-      SRR1502873r2="SRR1502873_2.fastq.gz",
-      SRR1502874r1="SRR1502874_1.fastq.gz",
-      SRR1502874r2="SRR1502874_2.fastq.gz",
-      SRR1502875r1="SRR1502875_1.fastq.gz",
-      SRR1502875r2="SRR1502875_2.fastq.gz",
-      SRR1502876r1="SRR1502876_1.fastq.gz",
-      SRR1502876r2="SRR1502876_2.fastq.gz",
-      SRR1502877r1="SRR1502877_1.fastq.gz",
-      SRR1502877r2="SRR1502877_2.fastq.gz",
-      SRR1502878r1="SRR1502878_1.fastq.gz",
-      SRR1502878r2="SRR1502878_2.fastq.gz",
-      SRR1502879r1="SRR1502879_1.fastq.gz",
-      SRR1502879r2="SRR1502879_2.fastq.gz",
-      SRR1502880r1="SRR1502880_1.fastq.gz",
-      SRR1502880r2="SRR1502880_2.fastq.gz",
-      SRR1502881r1="SRR1502881_1.fastq.gz",
-      SRR1502881r2="SRR1502881_2.fastq.gz",
-      SRR1502882r1="SRR1502882_1.fastq.gz",
-      SRR1502882r2="SRR1502882_2.fastq.gz"
+      R1="data/{sample}_downloaded_R1.fastq.gz",    # left end of paired reads
+      R2="data/{sample}_downloaded_R2.fastq.gz"     # right end of paired reads
+   params:
+      #dynamically grab the download link from the "URL_left" and "URL_right" columns in the samples data frame
+      download_link_R1 = lambda wildcards: samples_df.loc[wildcards.sample, "URL_left"],
+      download_link_R2 = lambda wildcards: samples_df.loc[wildcards.sample, "URL_right"]
    shell: """
-		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/001/SRR1502871/SRR1502871_1.fastq.gz -o {output.SRR1502871r1}
-		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/001/SRR1502871/SRR1502871_2.fastq.gz -o {output.SRR1502871r2}
-		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/004/SRR1502874/SRR1502874_1.fastq.gz -o {output.SRR1502874r1}
-		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/004/SRR1502874/SRR1502874_2.fastq.gz -o {output.SRR1502874r2}
-		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/006/SRR1502876/SRR1502876_1.fastq.gz -o {output.SRR1502876r1}
-		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/006/SRR1502876/SRR1502876_2.fastq.gz -o {output.SRR1502876r2}
-		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/002/SRR1502872/SRR1502872_1.fastq.gz -o {output.SRR1502872r1}
-		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/002/SRR1502872/SRR1502872_2.fastq.gz -o {output.SRR1502872r2}
-		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/003/SRR1502873/SRR1502873_1.fastq.gz -o {output.SRR1502873r1}
-		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/003/SRR1502873/SRR1502873_2.fastq.gz -o {output.SRR1502873r2}
-		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/005/SRR1502875/SRR1502875_1.fastq.gz -o {output.SRR1502875r1}
-		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/005/SRR1502875/SRR1502875_2.fastq.gz -o {output.SRR1502875r2}
-		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/007/SRR1502877/SRR1502877_1.fastq.gz -o {output.SRR1502877r1}
-		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/007/SRR1502877/SRR1502877_2.fastq.gz -o {output.SRR1502877r2}
-		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/008/SRR1502878/SRR1502878_1.fastq.gz -o {output.SRR1502878r1}
-		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/008/SRR1502878/SRR1502878_2.fastq.gz -o {output.SRR1502878r2}
-		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/002/SRR1502882/SRR1502882_1.fastq.gz -o {output.SRR1502882r1}
-		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/002/SRR1502882/SRR1502882_2.fastq.gz -o {output.SRR1502882r2}
-		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/001/SRR1502881/SRR1502881_1.fastq.gz -o {output.SRR1502881r1}
-		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/001/SRR1502881/SRR1502881_2.fastq.gz -o {output.SRR1502881r2}
-		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/000/SRR1502880/SRR1502880_1.fastq.gz -o {output.SRR1502880r1}
-		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/000/SRR1502880/SRR1502880_2.fastq.gz -o {output.SRR1502880r2}
-		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/009/SRR1502879/SRR1502879_1.fastq.gz -o {output.SRR1502879r1}
-		curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/009/SRR1502879/SRR1502879_2.fastq.gz -o {output.SRR1502879r2}
-"""
+      curl -L {params.download_link_R1} -o {output.R1}
+      curl -L {params.download_link_R2} -o {output.R2}
+    """
 
 
+
+##fastp_trim: perform trimming of reads
 rule fastp_trim:
    conda: "myenv.yml"
-   input: r1="{sample}_1.fastq.gz", r2="{sample}_2.fastq.gz"
-   output: r1="{sample}_QCd_1.fastq.gz", r2="{sample}_QCd_2.fastq.gz", html="{sample}_fastp.html", json="{sample}_fastp.json"
+   input:
+      R1="data/{sample}_downloaded_R1.fastq.gz",    # left end of paired reads
+      R2="data/{sample}_downloaded_R2.fastq.gz"     # right end of paired reads
+   output:
+      R1="data/{sample}_QCd_R1.fastq.gz",    # left end of paired reads after trimming
+      R2="data/{sample}_QCd_R2.fastq.gz",    # eight end of paired reads after trimming
+      html="{sample}_fastp.html",      # HTML report
+      json="{sample}_fastp.json"       # JSON report
+   params:
+      cpus=4,        # number of cores to use
+      minlen=40     # minimum length of reads after trimming
    shell: """
-      fastp --in1 {input.r1} --in2 {input.r2} --out1 {output.r1} --out2 {output.r2} --html {output.html} --json {output.json} --thread 4 --length_required 40
-      rm -f {input.r1} {input.r2} 
+      fastp \
+         --in1 {input.R1}       \
+         --in2 {input.R2}       \
+         --out1 {output.R1}     \
+         --out2 {output.R2}     \
+         --html {output.html}   \
+         --json {output.json}   \
+         --thread {params.cpus} \
+         --length_required {params.minlen}
    """
 
 
+
+##download_mt_genome: download the mitochondrial genome using efetch
 rule download_mt_genome:
    conda: "myenv.yml"
-   output: "MT880588.1.fasta"
-   shell: " efetch -db nuccore -id  MT880588.1 -format fasta > {output}"
+   output:
+      "MT880588.1.fasta"    # fasta file
+   shell: """
+      efetch -db nuccore -id  MT880588.1 -format fasta > {output}
+   """
 
 
+
+##hisat_build: build index for HISAT
 rule hisat_build:
    conda: "myenv.yml"
-   input: ref="MT880588.1.fasta"
-   output: idx_part="MT880588.1.fasta.1.ht2"
+   input:
+      ref="MT880588.1.fasta"   # fasta file
+   output:
+      idx_part="MT880588.1.fasta.1.ht2"   # one of the index files
    shell: """
       hisat2-build {input.ref} {input.ref}
    """
 
 
+
+##hisat: map reads with HISAT
 rule hisat:
    conda: "myenv.yml"
-   input: r1="{sample}_QCd_1.fastq.gz", r2="{sample}_QCd_2.fastq.gz", ref="MT880588.1.fasta", idx_part="MT880588.1.fasta.1.ht2"
-   output: bam="{sample}.bam"
+   input:
+      R1="data/{sample}_QCd_R1.fastq.gz",    # left end of paired reads after trimming
+      R2="data/{sample}_QCd_R2.fastq.gz",    # eight end of paired reads after trimming
+      ref="MT880588.1.fasta",                 # HISAT index name
+      idx_part="MT880588.1.fasta.1.ht2"       # make sure hisat2-build was called
+   output:
+      bam="{sample}.bam"       # output BAM file
    shell: """
-     hisat2 -x {input.ref} \
-        --threads 4        \
+     hisat2 -x {input.ref}    \
+        --threads 4           \
         --summary-file "{wildcards.sample}_ht2_summary.txt" \
         --min-intronlen 20    \
         --max-intronlen 5000  \
         --no-unal             \
-        -1 {input.r1} -2 {input.r2} | samtools sort -o {output.bam}
-        rm -f {input.r1} {input.r2}
+        -1 {input.R1} -2 {input.R2} | samtools sort -o {output.bam}
    """
 
