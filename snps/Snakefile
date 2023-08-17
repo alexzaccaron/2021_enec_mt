@@ -14,9 +14,7 @@ rule all:
     input: 
        "variants_filt_SNPs.recode.vcf",
        "variants_filt_INDELs.recode.vcf",
-       "variants_filt_INDELs_hist.bed",
-       "GCA_000798715.1.fasta",  # reference genome of C-strain
-       "GCA_000798715.1.gff"     # reference annotation of C-strain
+       "variants_filt_INDELs_hist.bed"
 
 
 
@@ -46,33 +44,6 @@ rule download_mt_genome:
       efetch -db nuccore -id  MT880588.1 -format fasta > {output.fasta}
       efetch -db nuccore -id  MT880588.1 -format gb    > {output.gbk}
    """
-
-
-
-##download_genome: downloaded the fasta and gff annotation for the nuclear genome
-rule download_genome:
-   output:
-      fasta="GCA_000798715.1.fasta.gz",
-      ann="GCA_000798715.1.gff.gz"
-   shell: """
-       curl -L ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/798/715/GCA_000798715.1_ASM79871v1/GCA_000798715.1_ASM79871v1_genomic.fna.gz -o {output.fasta}
-       curl -L ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/798/715/GCA_000798715.1_ASM79871v1/GCA_000798715.1_ASM79871v1_genomic.gff.gz -o {output.ann}
-"""
-
-
-##gzip_genome: decompress gziped files
-rule gzip_genome:
-   input:
-      fasta="GCA_000798715.1.fasta.gz",
-      ann="GCA_000798715.1.gff.gz"
-   output:
-      fasta="GCA_000798715.1.fasta",
-      ann="GCA_000798715.1.gff"
-   shell: """
-       gunzip -c {input.fasta} > {output.fasta}
-       gunzip -c {input.ann} > {output.ann}
-"""
-
 
 
 ##fastp_trim: perform trimming of reads
