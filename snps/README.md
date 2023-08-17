@@ -37,10 +37,10 @@ The R script `scripts/draw_coverage_variants.R` creates a plot of the coverage, 
 A rule graph is shown below, produced with:
 
 ```
-snakemake -n --rulegraph | dot -Tpdf > dag.pdf
+snakemake -n --rulegraph | dot -Tpng > dag.png
 ```
 
-![Snakefile rulegraph](dag.pdf "Rulegraph")
+![Snakefile rulegraph](dag.png "Rulegraph")
 
 
 
