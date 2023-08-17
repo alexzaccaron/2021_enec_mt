@@ -1,6 +1,6 @@
 
 # The mitochondrial genome of *Erysiphe necator*
-This repository contains scripts that I used for the analysis of the mitochondrial genome of the grape powdery mildew pathogen *Erysiphe necator* (GenBank [MT880588.1](https://www.ncbi.nlm.nih.gov/nuccore/MT880588.1/)). The genome and comparative analysis were published in [Zaccaron et al. 2021](https://www.nature.com/articles/s41598-021-93481-5).
+This repository contains scripts that I used for the analysis of the mitochondrial genome of the grape powdery mildew pathogen *Erysiphe necator* (GenBank [MT880588.1](https://www.ncbi.nlm.nih.gov/nuccore/MT880588.1/)). The genome and comparative analysis were published in [Zaccaron et al. (2021)](https://www.nature.com/articles/s41598-021-93481-5).
 
 
 Some of the analysis were performed with [snakemake](https://snakemake.readthedocs.io/en/stable/) to facilitate reproducibility and documentation. The `Snakefiles` utilized are in this repository.
@@ -16,4 +16,3 @@ There are README.md files with some details in each subdirectory. But you should
 ```bash=
 snakemake -j 1 --use-conda
 ```
-

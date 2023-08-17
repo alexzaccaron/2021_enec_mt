@@ -1,0 +1,6 @@
+sample	URL_left	URL_right	strain
+SRR1448470	ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/000/SRR1448470/SRR1448470_1.fastq.gz	ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/000/SRR1448470/SRR1448470_2.fastq.gz	Lodi
+SRR1448468	ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/008/SRR1448468/SRR1448468_1.fastq.gz	ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/008/SRR1448468/SRR1448468_2.fastq.gz	e1-101
+SRR1448454	ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/004/SRR1448454/SRR1448454_1.fastq.gz	ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/004/SRR1448454/SRR1448454_2.fastq.gz	ranch-9
+SRR1448453	ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/003/SRR1448453/SRR1448453_1.fastq.gz	ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/003/SRR1448453/SRR1448453_2.fastq.gz	branching
+SRR1448450	ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/000/SRR1448450/SRR1448450_1.fastq.gz	ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/000/SRR1448450/SRR1448450_2.fastq.gz	C-strain

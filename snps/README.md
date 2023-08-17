@@ -1,6 +1,38 @@
 ### `snps`
-In this directory there's a `Snakefile` that was utilized to call SNPs and INDELs in the mt genome. First, reads that match the mt genome are extracted with `bbduk` and then have their coverage normalized to 100x with `bbnorm`. The normalized reads are then mapped to the mt genome with `BWA-MEM`, PCR duplicates are marked with `samblaster` and `samtools` sorts the alignment to a BAM file. `mosdepth` is utilized to calculate the coverage across the mt genome with a sliding window. SNPs and INDELs are called with `FreeBayes` and then they are filtered with `VCFtools` with minQ of 30. Variants are annotated with `SnpEff`. To do so, `SnpEff` constructs a database from the GenBank file of the mt genome. I made sure to add the codon table `Mold_Mitochondrial` in the condig file of `SnpEff`. `VCFtools` splits the VCF file into SNPs and INDELs, and a histogram of INDELs across the mt genome is generated with `BEDTtools`.
 
-The R script `draw_coverage_variants.R` creates a plot of the coverage, the histogram of INDELs and location of SNPs across the mt genome.
+The purpose of this Snakemake pipeline is to call variants in the mitochondrial genome of *E. necator*.
+
+To execute the pipeline:
+
+```bash
+snakemake -j 1 --use-conda p
+```
+
+Parameters:
+
+* `-j 1`: sets the number of cores to use.
+* `--use-conda`: create a local conda environment where circos will be installed. Note the software to be installed (entrez-direct, fastp, hisat2, and SAMtools) is defined in the `myenv.yml` file.
+* `-p`: print the shell commands that will be executed.
+
+A brief description of what the rules in the `Snakefile` are doing is given below:
+
+* `download_reads`, `download_mt_genome`, `download_genome`: rules that download from NCBI reads from different isolates, the mt genome, and the nuclear genome. Sample names and download links are in the file `samples.txt`.
+* `fastp_trim`: trims low quality bases and barcode/adaptors from the reads.
+* `bbduk`: performs kmer matching to extract reads that match to the mt genome.
+* `bbnorm`: normalize coverage of the reads to a "normal" value. This is because the mtDNA is highly represented among the WGS reads. The expected coverage is in the range of many hundreds to thousands, which can be problematic for variant calling, or time consuming at the least.
+* `read_map`: map the reads to the mt genome.
+* `get_coverage`: get coverage of the mapped reads across the mt genome.
+* `add_RG`: add read group names to the produced BAM files.
+* `make_bam_fof`: produced a list of BAM files to be used by freebayes
+* `freebayes`: performs variant calling.
+* `vcftools`: filters variants based on mapQ values.
+* `prepare_snpeffconfig`: prepare files to generate a custom database for SnpEff, which is used to annotate the variants called. Basically, it adds metadata about the mt genome (including the nonstandard codon table of Mold Mitochondrial to use) to the file `snpEff.config`.
+* `build_snpeffDB`: builds the SnpEff database.
+* `snpeff_ann`: annotates the variants based on the created custom SnpEff database.
+* `split_SNPs_INDELs`: splits the variants into SNPs (or MNPs) and INDELs.
+* `INDEL_histogram`: splits the mt genome into chunks (i.e., windows), and count the number of INDELs within each window.
+
+The R script `scripts/draw_coverage_variants.R` creates a plot of the coverage, the histogram of INDELs and location of SNPs across the mt genome.
+
 
 

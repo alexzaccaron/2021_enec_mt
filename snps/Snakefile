@@ -1,18 +1,17 @@
-SAMPLES=["SRR1448453", "SRR1448454", "SRR1448468", "SRR1448470"]
+
+# Snakemake pipeline that performs variant calling on the mt genome of E. necator
+
+
+import pandas as pd
+
+# read a table with sample names and links to download the reads
+samples_df = pd.read_table('samples.txt').set_index("sample", drop=False)
+SAMPLES = list(samples_df['sample'])
+
 
 
 rule all:
     input: 
-       expand("{sample}_QCd_duk_norm_1.fastq.gz", sample=SAMPLES),
-       expand("{sample}_QCd_duk_norm_2.fastq.gz", sample=SAMPLES),
-       expand("{sample}_dedup_sorted.bam.bai", sample=SAMPLES),
-       expand("{sample}_dedup_sorted_rg.bam", sample=SAMPLES),
-       expand("{sample}.mosdepth.summary.txt", sample=SAMPLES),
-       "bams.fof",
-       "variants.vcf",
-       "variants_filt.recode.vcf",
-       "snpeff_db_prep_ok",
-       "snpeff_db_build_ok",
        "variants_filt_SNPs.recode.vcf",
        "variants_filt_INDELs.recode.vcf",
        "variants_filt_INDELs_hist.bed",
@@ -20,157 +19,260 @@ rule all:
        "GCA_000798715.1.gff"     # reference annotation of C-strain
 
 
+
+##download_reads: download fastq files specified in samples_df
 rule download_reads:
-   output: 
-      lodir1="lodi_1.fastq.gz", 
-      lodir2="lodi_2.fastq.gz",
-      ranch9r1="ranch9_1.fastq.gz", 
-      ranch9r2="ranch9_2.fastq.gz",
-      e1_101r1="e1-101_1.fastq.gz",
-      e1_101r2="e1-101_2.fastq.gz",
-      branchingr1="branching_1.fastq.gz", 
-      branchingr2="branching_2.fastq.gz",
-      cstrainr1="cstrain_1.fastq.gz",
-      cstrainr2="cstrain_2.fastq.gz",
+   output:
+      R1="data/{sample}_downloaded_R1.fastq.gz",    # left end of paired reads
+      R2="data/{sample}_downloaded_R2.fastq.gz"     # right end of paired reads
+   params:
+      #dynamically grab the download link from the "URL_left" and "URL_right" columns in the samples data frame
+      download_link_R1 = lambda wildcards: samples_df.loc[wildcards.sample, "URL_left"],
+      download_link_R2 = lambda wildcards: samples_df.loc[wildcards.sample, "URL_right"]
    shell: """
-      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/000/SRR1448470/SRR1448470_1.fastq.gz -o {output.lodir1}
-      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/000/SRR1448470/SRR1448470_2.fastq.gz -o {output.lodir2}
-
-      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/008/SRR1448468/SRR1448468_1.fastq.gz -o {output.e1_101r1}
-      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/008/SRR1448468/SRR1448468_2.fastq.gz -o {output.e1_101r2}
-
-      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/004/SRR1448454/SRR1448454_1.fastq.gz -o {output.ranch9r1}
-      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/004/SRR1448454/SRR1448454_2.fastq.gz -o {output.ranch9r2}
-
-      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/003/SRR1448453/SRR1448453_1.fastq.gz -o {output.branchingr1}
-      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/003/SRR1448453/SRR1448453_2.fastq.gz -o {output.branchingr2}
-
-      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/000/SRR1448450/SRR1448450_1.fastq.gz -o {output.cstrainr1}
-      curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR144/000/SRR1448450/SRR1448450_2.fastq.gz -o {output.cstrainr2}
+      curl -L {params.download_link_R1} -o {output.R1}
+      curl -L {params.download_link_R2} -o {output.R2}
     """
 
 
 
-# download mt genome in fasta and genbank format
+##download_mt_genome: download mitochondrial genome in fasta and genbank format
 rule download_mt_genome:
    conda: "env-preprocess.yml"
-   output: fasta="MT880588.1.fasta", gbk="MT880588.1.gbk"
+   output:
+      fasta="MT880588.1.fasta",
+      gbk="MT880588.1.gbk"
    shell: """
       efetch -db nuccore -id  MT880588.1 -format fasta > {output.fasta}
       efetch -db nuccore -id  MT880588.1 -format gb    > {output.gbk}
    """
 
 
+
+##download_genome: downloaded the fasta and gff annotation for the nuclear genome
 rule download_genome:
-   output: fasta="GCA_000798715.1.fasta.gz", ann="GCA_000798715.1.gff.gz"
+   output:
+      fasta="GCA_000798715.1.fasta.gz",
+      ann="GCA_000798715.1.gff.gz"
    shell: """
        curl -L ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/798/715/GCA_000798715.1_ASM79871v1/GCA_000798715.1_ASM79871v1_genomic.fna.gz -o {output.fasta}
        curl -L ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/798/715/GCA_000798715.1_ASM79871v1/GCA_000798715.1_ASM79871v1_genomic.gff.gz -o {output.ann}
 """
 
+
+##gzip_genome: decompress gziped files
 rule gzip_genome:
-   input: fasta="GCA_000798715.1.fasta.gz", ann="GCA_000798715.1.gff.gz"
-   output: fasta="GCA_000798715.1.fasta", ann="GCA_000798715.1.gff"
+   input:
+      fasta="GCA_000798715.1.fasta.gz",
+      ann="GCA_000798715.1.gff.gz"
+   output:
+      fasta="GCA_000798715.1.fasta",
+      ann="GCA_000798715.1.gff"
    shell: """
        gunzip -c {input.fasta} > {output.fasta}
        gunzip -c {input.ann} > {output.ann}
 """
 
+
+
+##fastp_trim: perform trimming of reads
 rule fastp_trim:
    conda: "env-preprocess.yml"
-   input: r1="{sample}_1.fastq.gz", r2="{sample}_2.fastq.gz"
-   output: r1="{sample}_QCd_1.fastq.gz", r2="{sample}_QCd_2.fastq.gz", html="{sample}_fastp.html", json="{sample}_fastp.json"
+   input:
+      R1="data/{sample}_downloaded_R1.fastq.gz",    # left end of paired reads
+      R2="data/{sample}_downloaded_R2.fastq.gz"     # right end of paired reads
+   output:
+      R1="data/{sample}_QCd_R1.fastq.gz",    # left end of paired reads after trimming
+      R2="data/{sample}_QCd_R2.fastq.gz",    # eight end of paired reads after trimming
+      html="{sample}_fastp.html",      # HTML report
+      json="{sample}_fastp.json"       # JSON report
+   params:
+      cpus=4,       # number of cores to use
+      minlen=40     # minimum length of reads after trimming
    shell: """
-      fastp --in1 {input.r1} --in2 {input.r2} --out1 {output.r1} --out2 {output.r2} --html {output.html} --json {output.json} --thread 6 --length_required 40
+      fastp \
+         --in1 {input.R1}       \
+         --in2 {input.R2}       \
+         --out1 {output.R1}     \
+         --out2 {output.R2}     \
+         --html {output.html}   \
+         --json {output.json}   \
+         --thread {params.cpus} \
+         --length_required {params.minlen}
    """
 
+
+
+##bbduk: perform a kmer matching to extract reads matching the mt genome
 rule bbduk:
    conda: "env-preprocess.yml"
-   input: r1="{sample}_QCd_1.fastq.gz", r2="{sample}_QCd_2.fastq.gz", ref="MT880588.1.fasta"
-   output: r1="{sample}_QCd_duk_1.fastq.gz", r2="{sample}_QCd_duk_2.fastq.gz", stats="{sample}_QCd_bbduk.txt", 
+   input:
+      R1="data/{sample}_QCd_R1.fastq.gz",    # left end of paired reads after trimming
+      R2="data/{sample}_QCd_R2.fastq.gz",    # eight end of paired reads after trimming
+      ref="MT880588.1.fasta"                 # mt genome
+   output:
+      R1="{sample}_QCd_duk_R1.fastq.gz",     # left end of paired reads matching the mt genome
+      R2="{sample}_QCd_duk_R2.fastq.gz",     # right end of paired reads matching the mt genome
+      stats="{sample}_QCd_bbduk.txt"         # output log file
+   params:
+      k=31,        # kmer size
+      hdist=1,     # hamming distance used
+      cpus=6       # number of CPUs to use
    shell: """
-      bbduk.sh in={input.r1} in2={input.r2} outm={output.r1} outm2={output.r2} ref={input.ref} k=31 hdist=1 stats={output.stats} threads=6
+      bbduk.sh \
+         in={input.R1}         \
+         in2={input.R2}        \
+         outm={output.R1}      \
+         outm2={output.R2}     \
+         ref={input.ref}       \
+         k={params.k}          \
+         hdist={params.hdist}  \
+         threads={params.cpus} \
+         stats={output.stats}
+
    """
 
 
+
+##bbnorm: reduces overall coverage, as mt genome is expected to have ultra-high coverage.
 rule bbnorm:
    conda: "env-preprocess.yml"
-   input: r1="{sample}_QCd_duk_1.fastq.gz", r2="{sample}_QCd_duk_2.fastq.gz"
-   output: r1="{sample}_QCd_duk_norm_1.fastq.gz", r2="{sample}_QCd_duk_norm_2.fastq.gz"
+   input:
+      R1="{sample}_QCd_duk_R1.fastq.gz",     # left end of paired reads matching the mt genome
+      R2="{sample}_QCd_duk_R2.fastq.gz",     # right end of paired reads matching the mt genome
+   output: 
+      R1="{sample}_QCd_duk_norm_R1.fastq.gz",     # left end of paired reads with coverage normalized
+      R2="{sample}_QCd_duk_norm_R2.fastq.gz",     # right end of paired reads with coverage normalized
+   params:
+      k=31,        # kmer size
+      cov=100,     # target coverage desired
+      cpus=6       # number of CPUs to use
    shell: """
-      bbnorm.sh in={input.r1} in2={input.r2} out={output.r1} out2={output.r2} target=100 threads=6 k=31
+      bbnorm.sh \
+         in={input.R1}         \
+         in2={input.R2}        \
+         out={output.R1}       \
+         out2={output.R2}      \
+         target={params.cov}   \
+         threads={params.cpus} \
+         k={params.k}
    """
 
-
+##read_map: map reads to the mt genome, mark PCR duplicates, and sort the resulting BAM file
 rule read_map:
    conda: "env-preprocess.yml"
-   input: r1="{sample}_QCd_duk_norm_1.fastq.gz", r2="{sample}_QCd_duk_norm_2.fastq.gz", ref="MT880588.1.fasta"
-   output: bam="{sample}_dedup_sorted.bam"
+   input:
+      R1="{sample}_QCd_duk_norm_R1.fastq.gz",     # left end of paired reads with coverage normalized
+      R2="{sample}_QCd_duk_norm_R2.fastq.gz",     # right end of paired reads with coverage normalized
+      ref="MT880588.1.fasta"                      # mt genome
+   output:
+      bam="{sample}_dedup_sorted.bam"             # output BAM file
    shell: """
       bwa index {input.ref}
       bwa mem  \
-           -M -t 4 {input.ref} {input.r1} {input.r2} | samblaster | samtools sort -o {output.bam}
+           -M -t 4 {input.ref} {input.R1} {input.R2} | samblaster | samtools sort -o {output.bam}
    """
 
+
+##bam_index: index BAM files with SAMtools
 rule bam_index:
    conda: "env-preprocess.yml"
-   input: bam="{sample}_dedup_sorted.bam"
-   output: bai="{sample}_dedup_sorted.bam.bai"
+   input:
+      bam="{sample}_dedup_sorted.bam"
+   output:
+      bai="{sample}_dedup_sorted.bam.bai"
    shell: """
       samtools index {input.bam}
    """
 
-# just getting coverage across the genome using a sliding window
+
+
+##get_coverage: get coverage across the genome using a sliding window
 rule get_coverage:
    conda: "env-preprocess.yml"
-   input: bam="{sample}_dedup_sorted.bam", bai="{sample}_dedup_sorted.bam.bai"
-   output: "{sample}.mosdepth.summary.txt"
+   input:
+      bam="{sample}_dedup_sorted.bam",
+      bai="{sample}_dedup_sorted.bam.bai"
+   output:
+      "{sample}.mosdepth.summary.txt"
+   params:
+      wsize=400    # size of sliding window
    shell: """
-      mosdepth --by 400 --use-median {wildcards.sample} {input.bam}
+      mosdepth --by {params.wsize} --use-median {wildcards.sample} {input.bam}
       gunzip --force "{wildcards.sample}.regions.bed.gz"
    """
 
 
+##add_RG: add read groups to the header of BAM files
 rule add_RG:
    conda: "env-preprocess.yml"
-   input: bam="{sample}_dedup_sorted.bam"
-   output: bam="{sample}_dedup_sorted_rg.bam"
+   input:
+      bam="{sample}_dedup_sorted.bam"
+   output:
+      bam="{sample}_dedup_sorted_rg.bam"
    shell: """
-      bamaddrg -b {input.bam} -s {wildcards.sample} -r {wildcards.sample} > {output.bam}
+      bamaddrg                 \
+         -b {input.bam}        \
+         -s {wildcards.sample} \
+         -r {wildcards.sample} > {output.bam}
    """
 
+##make_bam_fof: create a list of BAM files
 rule make_bam_fof:
-   input: 
-      SRR1448453="SRR1448453_dedup_sorted_rg.bam",
-      SRR1448454="SRR1448454_dedup_sorted_rg.bam",
-      SRR1448468="SRR1448468_dedup_sorted_rg.bam",
-      SRR1448470="SRR1448470_dedup_sorted_rg.bam"
-   output: "bams.fof"
+   input:
+      expand("{sample}_dedup_sorted_rg.bam", sample=SAMPLES)    # all BAM files must be produced
+   output:
+      "bams.fof"
    shell: """
       ls *_rg.bam > {output}
    """ 
    
+
+##freebayes: performs variant calling with freebayes
 rule freebayes:
    conda: "env-freebayes.yml"
-   input: ref="MT880588.1.fasta", flag="SRR1448453_dedup_sorted.bam", bams = "bams.fof"
-   output: vcf="variants.vcf"
+   input:
+      ref="MT880588.1.fasta",    # mt genome
+      bams="bams.fof"            # list of BAM files
+   output:
+      vcf="variants.vcf"
+   params:
+      ploidy=1    # organism haploid
    shell: """
-      freebayes -f {input.ref} --ploidy 1 -L {input.bams} > {output.vcf}
+      freebayes \
+         -f {input.ref}           \
+         --ploidy {params.ploidy} \
+         -L {input.bams} > {output.vcf}
    """
 
+
+##vcftools: filters variants based on quality (mapQ) 
 rule vcftools:
    conda: "env-freebayes.yml"
-   input: "variants.vcf"
-   output: "variants_filt.recode.vcf"
+   input:
+      "variants.vcf"
+   output:
+      "variants_filt.recode.vcf"
+   params:
+      minq=30    # min quality
    shell: """
-      vcftools --vcf {input} --minQ 30 --recode --recode-INFO-all --out variants_filt
+      vcftools \
+         --vcf {input}        \
+         --minQ {params.minq} \
+         --recode             \
+         --recode-INFO-all    \
+         --out variants_filt
    """
 
 
+
+##prepare_snpeffconfig: prepare files and contif files to build a SnpEff db to annotate variants
 rule prepare_snpeffconfig:
    conda: "env-snpeff.yml"
-   input: gbk="MT880588.1.gbk"
-   output: "snpeff_db_prep_ok"
+   input:
+      gbk="MT880588.1.gbk"      # mt genome in genbank format
+   output:
+      "snpeff_db_prep_ok"       # flags that files were prepared
    shell: """
        SNPEFF_CONFIG=$(find .snakemake/conda/ -name snpEff.config)
        SNPEFF_PATH=$(dirname $SNPEFF_CONFIG)
@@ -182,14 +284,17 @@ rule prepare_snpeffconfig:
        cp {input.gbk} $SNPEFF_PATH/data/enec_mt/genes.gbk
 
        touch {output}
-       
    """
-   
-   
+
+
+
+##build_snpeffDB: builds a SnpEff db to annotate variants
 rule build_snpeffDB:
    conda: "env-snpeff.yml"
-   input: "snpeff_db_prep_ok"
-   output: "snpeff_db_build_ok"
+   input:
+      "snpeff_db_prep_ok"      # flags that files were prepared
+   output:
+      "snpeff_db_build_ok"     # flags that SnpEff db was created
    shell: """    
        SNPEFF_CONFIG=$(find .snakemake/conda/ -name snpEff.config)  
        snpEff build -config $SNPEFF_CONFIG -genbank -v enec_mt
@@ -197,18 +302,30 @@ rule build_snpeffDB:
       touch {output}
    """
 
+
+
+##snpeff_ann: annotate variants with SnpEff
 rule snpeff_ann:
    conda: "env-snpeff.yml"
-   input: vcf="variants_filt.recode.vcf", prep="snpeff_db_build_ok"
-   output: "variants_filt.recode.ann.vcf"
+   input:
+      vcf="variants_filt.recode.vcf",   # variants
+      prep="snpeff_db_build_ok"         # flags that SnpEff db was created
+   output:
+      "variants_filt.recode.ann.vcf"
    shell: """    
        snpEff -v enec_mt {input.vcf} > {output}
    """
 
+
+
+##split_SNPs_INDELs: splits INDELs and SNPs into different vcf files
 rule split_SNPs_INDELs:
    conda: "env-freebayes.yml"
-   input: vcf="variants_filt.recode.ann.vcf"
-   output: snps="variants_filt_SNPs.recode.vcf", indels="variants_filt_INDELs.recode.vcf"
+   input:
+      vcf="variants_filt.recode.ann.vcf"        # variants
+   output:
+      snps="variants_filt_SNPs.recode.vcf",     # only SNPs/MNPs
+      indels="variants_filt_INDELs.recode.vcf"  # only INDELs
    shell: """
        PREFIX=$(echo {output.snps} | cut -f 1 -d '.')
        vcftools --vcf {input.vcf} --remove-indels    --recode --recode-INFO-all --out $PREFIX
@@ -216,11 +333,20 @@ rule split_SNPs_INDELs:
        vcftools --vcf {input.vcf} --keep-only-indels --recode --recode-INFO-all --out $PREFIX
    """
 
+
+
+##INDEL_histogram: creates windows and counts how many INDELs within each window.
 rule INDEL_histogram:
-   input: "variants_filt_INDELs.recode.vcf"
-   output: "variants_filt_INDELs_hist.bed"
+   input:
+      "variants_filt_INDELs.recode.vcf"
+   output:
+      "variants_filt_INDELs_hist.bed"
+   params:
+      wsize=400     # size of window
    shell: """
-      bedtools makewindows -g <(echo "MT880588.1"$'\t'188577) -w 400 | bedtools intersect -a - -b {input} -c > {output}
+      bedtools makewindows \
+         -g <(echo "MT880588.1"$'\t'188577) \
+         -w {params.wsize} | bedtools intersect -a - -b {input} -c > {output}
    """
 
 
