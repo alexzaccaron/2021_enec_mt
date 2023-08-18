@@ -17,7 +17,8 @@ rule download_all:
         "concatenated_alignment/concatenated_alignment_params.nex.con.tre"
         
 
-# rule to download sequences
+
+##download_sequences: rule to download sequences
 rule download_sequences:
     conda: "env.yml"
     input: "main_table_melt.txt"
@@ -34,58 +35,74 @@ rule download_sequences:
         mv auxfile {output}
         """
 
-# rule to group sequences by gene
+
+
+##combine_sequences: group sequences by gene
 rule combine_sequences:
    conda: "env.yml"
-   input: expand("sequences/{sample}.fasta", sample=SAMPLES)
-   output: "sequences_grouped/{gene}.fasta"
+   input:
+      expand("sequences/{sample}.fasta", sample=SAMPLES)
+   output:
+      "sequences_grouped/{gene}.fasta"
    shell: """
       cat sequences/*"_"{wildcards.gene}"_"* > {output}
    """
 
 
-# rule to align sequences. Will generate one alignment per gene
+##align_sequences: rule to align sequences. Will generate one alignment per gene
 rule align_sequences:
    conda: "env.yml"
-   input: "sequences_grouped/{gene}.fasta"
-   output: "sequences_aligned/{gene}_aligned.fasta"
+   input:
+      "sequences_grouped/{gene}.fasta"
+   output:
+      "sequences_aligned/{gene}_aligned.fasta"
    shell: """
       mafft --localpair --maxiterate 1000 {input} > {output}
    """
 
-# now trim the alignments
+
+##trim_alignments: now trim the alignments
 rule trim_alignments:
    conda: "env.yml"
-   input: "sequences_aligned/{gene}_aligned.fasta"
-   output: "sequences_aligned_trimmed/{gene}_trimmed.fasta"
+   input:
+      "sequences_aligned/{gene}_aligned.fasta"
+   output:
+      "sequences_aligned_trimmed/{gene}_trimmed.fasta"
    shell: """
       trimal -nogaps -in {input} > {output}
    """
 
-# condatenate the alignments into a superalignment
+##concatenate_alignments: condatenate the alignments into a superalignment
 rule concatenate_alignments:
    conda: "env.yml"
-   input: expand("sequences_aligned_trimmed/{gene}_trimmed.fasta", gene=GENES)
-   output: "concatenated_alignment/concatenated_alignment.fasta", directory("concatenated_alignment")
+   input:
+      expand("sequences_aligned_trimmed/{gene}_trimmed.fasta", gene=GENES)
+   output:
+      "concatenated_alignment/concatenated_alignment.fasta",
+      directory("concatenated_alignment")
    shell: """
       pxcat -s sequences_aligned_trimmed/*.fasta -p concatenated_alignment/pxcat_parts.txt -o {output}
    """
 
-# rule to convert alignment in fasta to nexus
+##convert_fasta_nexus: rule to convert alignment in fasta to nexus
 rule convert_fasta_nexus:
    conda: "env.yml"
-   input: "concatenated_alignment/concatenated_alignment.fasta"
-   output: "concatenated_alignment/concatenated_alignment.nex"
+   input:
+      "concatenated_alignment/concatenated_alignment.fasta"
+   output:
+      "concatenated_alignment/concatenated_alignment.nex"
    shell: """
       pxs2nex -s{input} -o {output}
    """
 
 
-# rule to add mrbayes paramters at the end of the nexus file
+##add_mrbayes_params: rule to add mrbayes paramters at the end of the nexus file
 rule add_mrbayes_params:
    conda: "env.yml"
-   input: "concatenated_alignment/concatenated_alignment.nex"
-   output: "concatenated_alignment/concatenated_alignment_params.nex"
+   input:
+      "concatenated_alignment/concatenated_alignment.nex"
+   output:
+      "concatenated_alignment/concatenated_alignment_params.nex"
    shell: """
       cat {input} > {output}
       echo "
@@ -101,11 +118,13 @@ end;
 " >> {output}
    """
  
-
+##call_mrbayes:
 rule call_mrbayes:
    conda: "env.yml"
-   input: "concatenated_alignment/concatenated_alignment_params.nex"
-   output: "concatenated_alignment/concatenated_alignment_params.nex.con.tre"
+   input:
+      "concatenated_alignment/concatenated_alignment_params.nex"
+   output:
+      "concatenated_alignment/concatenated_alignment_params.nex.con.tre"
    shell: """
       mb {input}
    """
