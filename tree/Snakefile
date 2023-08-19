@@ -1,19 +1,17 @@
 
+# Snakemake pipeline to build a mitochondrial genome phylogenetic tree.
+
+
 import pandas as pd
 
-
+# file main_table_melt.txt contains gene names, accessions numbers, and name of the files to save the sequences
 samples_df = pd.read_table('main_table_melt.txt').set_index("filename", drop=False)
 SAMPLES = list(samples_df['filename'])
 GENES   = list(samples_df['gene'])
 
 
-rule download_all:
+rule all:
     input:
-        expand("sequences/{sample}.fasta", sample=SAMPLES),
-        expand("sequences_grouped/{gene}.fasta", gene=GENES),
-        expand("sequences_aligned/{gene}_aligned.fasta", gene=GENES),
-        expand("sequences_aligned_trimmed/{gene}_trimmed.fasta", gene=GENES),
-        "concatenated_alignment/concatenated_alignment.fasta",
         "concatenated_alignment/concatenated_alignment_params.nex.con.tre"
         
 
@@ -30,7 +28,8 @@ rule download_sequences:
     shell: """
         # fetch from NCBI
         efetch -db protein -id {params.accession} -format fasta > {output}
-        # trick here, replacing accession by taxID as sequence name. Useful downstream.
+        
+        # trick here, replacing accession by taxID as sequence name. This is useful downstream.
         sed 's/^>{params.accession}/>{params.taxID}/g' {output} > auxfile
         mv auxfile {output}
         """
@@ -61,6 +60,7 @@ rule align_sequences:
    """
 
 
+
 ##trim_alignments: now trim the alignments
 rule trim_alignments:
    conda: "env.yml"
@@ -71,6 +71,8 @@ rule trim_alignments:
    shell: """
       trimal -nogaps -in {input} > {output}
    """
+
+
 
 ##concatenate_alignments: condatenate the alignments into a superalignment
 rule concatenate_alignments:
@@ -84,6 +86,8 @@ rule concatenate_alignments:
       pxcat -s sequences_aligned_trimmed/*.fasta -p concatenated_alignment/pxcat_parts.txt -o {output}
    """
 
+
+
 ##convert_fasta_nexus: rule to convert alignment in fasta to nexus
 rule convert_fasta_nexus:
    conda: "env.yml"
@@ -96,7 +100,8 @@ rule convert_fasta_nexus:
    """
 
 
-##add_mrbayes_params: rule to add mrbayes paramters at the end of the nexus file
+
+##add_mrbayes_params: rule to add mrbayes parameters at the end of the nexus file
 rule add_mrbayes_params:
    conda: "env.yml"
    input:
@@ -118,6 +123,7 @@ end;
 " >> {output}
    """
  
+
 ##call_mrbayes:
 rule call_mrbayes:
    conda: "env.yml"
